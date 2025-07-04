@@ -1,0 +1,178 @@
+@import "tailwindcss";
+/* @import 'tailwind-scrollbar-hide/v4'; */
+
+
+@theme{
+  /* font */
+  --font-primary: "Poppins", "sans-serif";
+  /* couleur */
+  --color-happy: #1976D2;
+  --color-orange: #FF5722;
+  --color-happySecond: #0077b6;
+  --color-happyThird:#00b4d8;
+}
+
+/* Pour tous les navigateurs prenant en charge les standards CSS */
+* {
+  scrollbar-width: thin; /* "auto" ou "thin" */
+  scrollbar-color: #00b4d8 #f1f1f1; /* couleur de la poignée et de la piste */
+}
+
+/* Pour Firefox spécifiquement */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #00b4d8 #e8dddd;
+}
+
+/* Pour les navigateurs WebKit comme Chrome et Safari */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #d6ccc7;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #737373;
+  border-radius: 6px;
+  border: 3px solid #f1f1f1;
+}
+
+
+/* *
+1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
+2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
+*/ 
+
+  
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  /* 1 */
+  /* border-width: 0; */
+  /* 2 */
+  border-style: solid;
+  /* 2 */
+  border-color: #e5e7eb;
+  /* 2 */
+}
+
+::before,
+::after {
+  --tw-content: '';
+}
+
+/* polices */
+@font-face {
+  font-family: blinker-light;
+  src: url(../../public/fonts/Blinker/Blinker-Light.ttf);
+}
+@font-face {
+  font-family: blinker-extralight;
+  src: url(../../public/fonts/Blinker/Blinker-ExtraLight.ttf);
+}
+
+.blinker-light {
+  font-family: blinker-light, 'sans-serif';
+}
+.blinker-extralight {
+  font-family: blinker-extralight, 'sans-serif';
+}
+@font-face {
+  font-family: robotor-light;
+  src: url(../../public/fonts/Roboto/static/Roboto-Light.ttf);
+}
+
+.roboto-light {
+  font-family: roboto-light, 'sans-serif';
+}
+
+.bg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left:0;
+  z-index: -1;
+  background-image: url("../../public/background.jpeg");
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  opacity: 5%;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-primary) ;
+  font-size: 16px;
+}
+
+.btn-action {
+  width: -moz-max-content;
+  width: max-content;
+  text-wrap: nowrap;
+  border-radius: 10px;
+  border-width: 2px;
+  --tw-border-opacity: 1;
+  border-color: rgb(25 118 210 / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgb(25 118 210 / var(--tw-bg-opacity));
+  padding: 12px 20px;
+  font-weight: 300;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.text-lg {
+  font-size: 22px;
+  line-height: 1.75rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+/* Scroll personnalisé pour les formations */
+.custom-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+    background: #fffefe;
+    border-radius: 10px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+    background: #00b4d8;
+    border-radius: 10px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+    background: #0077b6;
+}
+
+/* Support Firefox */
+.custom-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #00b4d8 #ffffff;
+}
+
+/* Calendar Academique */
+.rbc-calendar{
+ height: 87%;
+}
+
+
