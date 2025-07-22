@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { MdOutlineNavigateNext } from "react-icons/md";
 import { GrFormPrevious } from "react-icons/gr";
 import ButtonAction from './ButtonAction';
+import { getStrapiMedia, optimizeCloudinaryUrl } from "@/app/lib/api";
+
 
 
 const SlideImageHeader = () => {

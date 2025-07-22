@@ -95,16 +95,18 @@ const Card = () => {
       link: "/cours/japonais-intermediaire",
       color: "from-indigo-500 to-purple-600"
     },
+
+    // COURS DE TECH
     {
       id: 7,
-      title: "Japonais des Affaires",
+      title: "Développement Web",
       description: "Maîtrisez le japonais professionnel pour travailler avec des entreprises japonaises.",
       duration: "55 heures",
-      level: "Avancé",
+      level: "all",
       format: "Hybride",
-      category: "japonais",
+      category: "tech",
       sessions: "3 fois/semaine",
-      price: "580€",
+      price: "A partir de 60 000 FCFA",
       image: "🏢",
       link: "/cours/japonais-affaires",
       color: "from-violet-500 to-pink-600"
@@ -280,7 +282,8 @@ const Card = () => {
     { id: 'espagnol', name: 'Cours d\'Espagnol', icon: '🇪🇸' },
     { id: 'gestion', name: 'Gestion de Projet', icon: '📊' },
     { id: 'secretariat', name: 'Secrétariat Informatique', icon: '💻' },
-    { id: 'comptabilite', name: 'Comptabilité', icon: '📈' }
+    { id: 'comptabilite', name: 'Comptabilité', icon: '📈' },
+    { id: 'tech', name: 'Développement Web', icon: '📈' }
   ]
 
   const levels = [

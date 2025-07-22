@@ -1,16 +1,47 @@
 'use client'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SecondButton from '../SecondButton'
 import Link from 'next/link'
+import { api, getStrapiMedia } from '@/app/lib/api'
+import { BlocksRenderer } from '@strapi/blocks-react-renderer'
+import { Loader2, TruckElectric } from 'lucide-react'
 
 const Apropos = () => {
   const [activeTab, setActiveTab] = useState('mission')
 
+  const [teams, setTeam] = useState([])
+  const [isTeamLoading, setIsLoadingTeam] = useState(true)
+
+  
+    useEffect(() =>{
+      const fetchTeam = async () => {
+        setIsLoadingTeam(true)
+         try {
+          const response = await api("/enseignants?populate=*")
+          
+          if(response && response.data && response.data.length > 0) {
+            setTeam(response.data)
+            console.log("data:", response.data)
+          } else {
+            console.log("Error de report de la date reportée")
+            setDate(null)
+          }
+        } catch (error) {
+          console.error("Erreur lors du chargement de la date:", error)
+          setTeam(null)
+        } finally {
+          setIsLoadingTeam(false)
+        }
+      }
+      
+      fetchTeam()
+    },[])
+
   const stats = [
     { number: '2000+', label: 'Étudiants formés', icon: '👥' },
-    { number: '15+', label: 'Années d\'expérience', icon: '📅' },
-    { number: '50+', label: 'Formations disponibles', icon: '📚' },
+    { number: '13+', label: 'Années d\'expérience', icon: '📅' },
+    { number: '10+', label: 'Formations disponibles', icon: '📚' },
     { number: '98%', label: 'Taux de satisfaction', icon: '⭐' }
   ]
 
@@ -115,7 +146,7 @@ const Apropos = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 mt-22">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 pt-[138px]">
       {/* Hero Section */}
       <section className="relative overflow-hidden text-white h-[60vh]">
         <div className="absolute inset-0 ">
@@ -126,7 +157,7 @@ const Apropos = () => {
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-28 h-full flex flex-col justify-center">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold mb-6 lg:mb-8 leading-tight">
-              À Propos de <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-300">FormationPro</span>
+              À Propos du <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-300">Centre de Culture Japonaise Bénin</span>
             </h1>
             <p className="text-lg sm:text-xl lg:text-2xl opacity-90 leading-relaxed mb-8 lg:mb-12">
               Votre partenaire de confiance pour l'apprentissage des langues et le développement professionnel depuis 15 ans
@@ -248,22 +279,46 @@ const Apropos = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            {team.map((member, index) => (
-              <div key={index} className="bg-white rounded-xl p-6 lg:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
-                <div className="text-center">
-                  <div className="text-5xl lg:text-6xl mb-4 lg:mb-6">{member.image}</div>
-                  <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-2">{member.name}</h3>
-                  <p className="text-blue-600 font-semibold mb-1">{member.role}</p>
-                  <p className="text-sm text-gray-600 mb-2">{member.speciality}</p>
-                  <div className="inline-block bg-gray-100 px-3 py-1 rounded-full text-xs font-medium text-gray-700 mb-4">
-                    {member.experience} d'expérience
-                  </div>
-                  <p className="text-sm text-gray-600 leading-relaxed">{member.description}</p>
-                </div>
+          {
+            isTeamLoading ? (
+            <div className="h-fit pt-10 flex items-center justify-center bg-gray-50">
+              <div className="text-center text-lg font-semibold">
+                <Loader2 className="h-8 w-8 animate-spin text-blue-600 mx-auto mb-4" />
+                <p className="text-gray-600">Chargement des articles..</p>
               </div>
-            ))}
-          </div>
+            </div>
+            ): (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+              {teams.map((member, index) => (
+                <div key={index} className="bg-white rounded-xl p-6 lg:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                  <div className="text-center">
+                    <div className="text-5xl lg:text-6xl mb-4 lg:mb-6">
+                      <Image width={30} height={50} src={getStrapiMedia(member.cover.url)} alt={member.cover.name} className='border-rounded w-fit h-fit'/>
+                    </div>
+                    <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-2">{member.name}</h3>
+                    <p className="text-blue-600 font-semibold mb-1">{member.role}</p>
+                    <p className="text-sm text-gray-600 mb-2">{member.domaine}</p>
+                    <div className="inline-block bg-gray-100 px-3 py-1 rounded-full text-xs font-medium text-gray-700 mb-4">
+                      {member.year_experience} ans d'expérience
+                    </div>
+                    <BlocksRenderer
+                      content={member?.description}
+                      blocks={{                            
+                          paragraph: ({ children }) => {
+                          return (
+                              <p className="text-sm text-gray-600 leading-relaxed">
+                              {children}
+                              </p>
+                          );
+                          },
+                      }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+            )
+          }
         </div>
       </section>
 

@@ -4,31 +4,31 @@ import React from 'react'
 const formations = [
     {
         name: "Anglais",
-        link: "/",
+        link: "/cours/anglais",
     },
     {
         name: "Japonais",
-        link: "/",
+        link: "/cours/japonais",
     },
     {
         name: "Espagnol",
-        link: "/",
+        link: "/cours/espagnol",
     },
     {
         name: "Infographie",
-        link: "/",
+        link: "/cours/infographie",
     },
     {
         name: "Gestion de Projet",
-        link: "/",
+        link: "/cours/gestionprojet",
     },
     {
         name: "Sécrétariat informatique",
-        link: "/",
+        link: "/cours/secretariat",
     },
     {
         name: "Comptabilité",
-        link: "/",
+        link: "/comptabilite",
     },
 ]
 
