@@ -13,9 +13,9 @@ const CoursTablePrograme = () => {
       id: 1,
       course: 'Anglais',
       level: 'Débutant à Avancé',
-      duration: '6 mois',
-      sessions: '3 fois/semaine',
-      price: '150€/mois',
+      duration: 'En fonction du choix',
+      sessions: 'En fonction du choix',
+      price: 'En fonction du choix',
       status: 'Ouvert'
     },
     {
@@ -24,25 +24,25 @@ const CoursTablePrograme = () => {
       level: 'Débutant à Intermédiaire',
       duration: '4 mois',
       sessions: '2 fois/semaine',
-      price: '120€/mois',
+      price: '50 000 Fcfa',
       status: 'Ouvert'
     },
     {
       id: 3,
       course: 'Japonais',
       level: 'Débutant',
-      duration: '8 mois',
-      sessions: '2 fois/semaine',
-      price: '180€/mois',
+      duration: '1 mois',
+      sessions: '1 fois/semaine',
+      price: '35 000 Fcfa',
       status: 'Places limitées'
     },
     {
       id: 4,
       course: 'Infographie',
       level: 'Débutant à Avancé',
-      duration: '5 mois',
-      sessions: '4 fois/semaine',
-      price: '200€/mois',
+      duration: '6 mois',
+      sessions: '3 fois/semaine',
+      price: '50 000 FCFA',
       status: 'Ouvert'
     },
     {
@@ -51,7 +51,7 @@ const CoursTablePrograme = () => {
       level: 'Intermédiaire à Avancé',
       duration: '3 mois',
       sessions: '2 fois/semaine',
-      price: '250€/mois',
+      price: '50 000 Fcfa',
       status: 'Ouvert'
     }
   ];
@@ -59,11 +59,11 @@ const CoursTablePrograme = () => {
   // Programmes détaillés par cours
   const courseDetails = {
     anglais: [
-      { module: 'Grammaire de base', semaine: '1-4', heures: '20h', objectifs: 'Maîtriser les temps simples' },
-      { module: 'Vocabulaire quotidien', semaine: '5-8', heures: '25h', objectifs: 'Communiquer dans la vie courante' },
-      { module: 'Expression orale', semaine: '9-12', heures: '30h', objectifs: 'Conversations fluides' },
-      { module: 'Anglais professionnel', semaine: '13-16', heures: '25h', objectifs: 'Communication en entreprise' },
-      { module: 'Préparation TOEIC', semaine: '17-20', heures: '20h', objectifs: 'Certification officielle' }
+      { module: 'Anglais Général et Spécialité', semaine: '3 séances', heures: '3h-4h/par jour', objectifs: 'Maîtriser les temps simples',montant: '70 000 Fcfa' }, 
+      { module: 'Anglais de communication', semaine: '4 séances', heures: '2h-3h / jour', objectifs: 'Communiquer dans la vie courante',montant: '80 000 Fcfa' }, 
+      { module: 'Anglais de communication accéléré', semaine: '5 séances', heures: '3h-4h / jour', objectifs: 'Conversations fluides',montant: '120 000 Fcfa' }, 
+      { module: 'Anglais professionnel', semaine: '2 séances \n (disponibles cours du matin ou cours de l\'après midi)', heures: '2h / jour', objectifs: 'Communication en entreprise',montant: '40 000 Fcfa' }, 
+      { module: 'Préparation TOEIC/TOEFL', semaine: '4 séances', heures: '2h-3h / par jour', objectifs: 'Certification officielle',montant: '80 000 Fcfa' }
     ],
     espagnol: [
       { module: 'Alphabet et prononciation', semaine: '1-2', heures: '15h', objectifs: 'Bases phonétiques' },
@@ -239,7 +239,7 @@ const CoursTablePrograme = () => {
                     <td className="border border-gray-300 px-4 py-3 font-semibold text-gray-800">
                       {module.module}
                     </td>
-                    <td className="border border-gray-300 px-4 py-3 text-gray-600">
+                    <td className="border border-gray-300 px-4 py-3 text-gray-600 whitespace-pre-line">
                       {module.semaine}
                     </td>
                     <td className="border border-gray-300 px-4 py-3 text-gray-600 font-medium">
@@ -269,7 +269,7 @@ const CoursTablePrograme = () => {
           </div>
           <div>
             <strong className="text-gray-800">📞 Contact :</strong>
-            <br />+33 1 23 45 67 89
+            <br />+229 01 97 65 29 99
           </div>
         </div>
       </div>

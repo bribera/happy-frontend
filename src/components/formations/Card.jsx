@@ -1,290 +1,98 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { api } from '@/app/lib/api'
+import ReactCountryFlag from "react-country-flag";
+
 
 const Card = () => {
   const [activeCategory, setActiveCategory] = useState('all')
   const [activeLevel, setActiveLevel] = useState('all')
   const [activeFormat, setActiveFormat] = useState('all')
+  const [courses, setCourses] = useState([])
+  const [categories, setCategories] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
-  const courses = [
-    // COURS D'ANGLAIS
-    {
-      id: 1,
-      title: "Cours d'Anglais Débutant",
-      description: "Apprenez les bases de l'anglais : grammaire, vocabulaire essentiel et conversation simple.",
-      duration: "30 heures",
-      level: "Débutant",
-      format: "En ligne",
-      category: "anglais",
-      sessions: "3 fois/semaine",
-      price: "180€",
-      image: "🇬🇧",
-      link: "/cours/anglais-debutant",
-      color: "from-blue-500 to-indigo-600"
-    },
-    {
-      id: 2,
-      title: "Cours d'Anglais des Affaires",
-      description: "Perfectionnez votre anglais professionnel pour réussir dans le monde des affaires.",
-      duration: "45 heures",
-      level: "Intermédiaire",
-      format: "Hybride",
-      category: "anglais",
-      sessions: "2 fois/semaine",
-      price: "350€",
-      image: "💼",
-      link: "/cours/anglais-affaires",
-      color: "from-green-500 to-teal-600"
-    },
-    {
-      id: 3,
-      title: "Cours d'Anglais Avancé",
-      description: "Maîtrisez l'anglais avancé : expressions idiomatiques, littérature et débats.",
-      duration: "40 heures",
-      level: "Avancé",
-      format: "Présentiel",
-      category: "anglais",
-      sessions: "2 fois/semaine",
-      price: "420€",
-      image: "📚",
-      link: "/cours/anglais-avance",
-      color: "from-purple-500 to-blue-600"
-    },
-    {
-      id: 4,
-      title: "Préparation TOEFL/IELTS",
-      description: "Préparez-vous efficacement aux examens TOEFL et IELTS avec nos experts.",
-      duration: "50 heures",
-      level: "Intermédiaire",
-      format: "Hybride",
-      category: "anglais",
-      sessions: "3 fois/semaine",
-      price: "480€",
-      image: "🎯",
-      link: "/cours/preparation-toefl-ielts",
-      color: "from-orange-500 to-red-600"
-    },
+  // Fonction pour récupérer les données depuis Strapi
+  const fetchData = async () => {
+    try {
+      setLoading(true)
+      setError(null)
+      
+      // Récupération des cours avec les relations (catégories, niveaux, etc.)
+      const coursesData = await api('/cours-formations?populate=*')
+      const categoriesData = await api('/categories')
 
-    // COURS DE JAPONAIS
-    {
-      id: 5,
-      title: "Cours de Japonais Débutant",
-      description: "Découvrez la langue japonaise : hiragana, katakana, phrases de base et culture.",
-      duration: "40 heures",
-      level: "Débutant",
-      format: "En ligne",
-      category: "japonais",
-      sessions: "2 fois/semaine",
-      price: "280€",
-      image: "🇯🇵",
-      link: "/cours/japonais-debutant",
-      color: "from-pink-500 to-purple-600"
-    },
-    {
-      id: 6,
-      title: "Japonais Intermédiaire",
-      description: "Approfondissez vos connaissances : kanji, grammaire complexe et conversation.",
-      duration: "60 heures",
-      level: "Intermédiaire",
-      format: "Présentiel",
-      category: "japonais",
-      sessions: "2 fois/semaine",
-      price: "450€",
-      image: "🏯",
-      link: "/cours/japonais-intermediaire",
-      color: "from-indigo-500 to-purple-600"
-    },
+      console.log('Données courses reçues:', coursesData)
+      console.log('Données categories reçues:', categoriesData)
 
-    // COURS DE TECH
-    {
-      id: 7,
-      title: "Développement Web",
-      description: "Maîtrisez le japonais professionnel pour travailler avec des entreprises japonaises.",
-      duration: "55 heures",
-      level: "all",
-      format: "Hybride",
-      category: "tech",
-      sessions: "3 fois/semaine",
-      price: "A partir de 60 000 FCFA",
-      image: "🏢",
-      link: "/cours/japonais-affaires",
-      color: "from-violet-500 to-pink-600"
-    },
+      // Helper function pour récupérer les propriétés avec fallback
+    const getProperty = (obj, ...keys) => {
+      for (const key of keys) {
+        if (obj && obj[key] !== undefined && obj[key] !== null) {
+          return obj[key];
+        }
+      }
+      return null;
+    };
 
-    // COURS D'ESPAGNOL
-    {
-      id: 8,
-      title: "Cours d'Espagnol Débutant",
-      description: "Commencez votre apprentissage de l'espagnol avec les bases essentielles.",
-      duration: "35 heures",
-      level: "Débutant",
-      format: "En ligne",
-      category: "espagnol",
-      sessions: "2 fois/semaine",
-      price: "200€",
-      image: "🇪🇸",
-      link: "/cours/espagnol-debutant",
-      color: "from-red-500 to-orange-600"
-    },
-    {
-      id: 9,
-      title: "Espagnol Conversationnel",
-      description: "Perfectionnez votre expression orale et votre compréhension en espagnol.",
-      duration: "40 heures",
-      level: "Intermédiaire",
-      format: "Présentiel",
-      category: "espagnol",
-      sessions: "3 fois/semaine",
-      price: "320€",
-      image: "💬",
-      link: "/cours/espagnol-conversationnel",
-      color: "from-yellow-500 to-red-600"
-    },
+      // Transformation des données Strapi pour correspondre à votre structure
+      const transformedCourses = coursesData.data?.map(course => ({
+      id: course.id,
+      title: getProperty(course, 'titre', 'title') || 'Titre non disponible', // Utiliser 'title' pas 'titre'
+      description: getProperty(course, 'description') || 'Description non disponible',
+      duration: getProperty(course, 'duree', 'duration', 'durée') || 'Durée non spécifiée',
+      level: getProperty(course, 'niveau', 'level') || 'Niveau non spécifié',
+      format: getProperty(course, 'format', 'forme') || 'Format non spécifié',
+      category: course.category?.slug || getProperty(course, 'category') || 'general',
+      sessions: getProperty(course, 'sessions', 'seances') || 'Sessions non spécifiées',
+      price: getProperty(course, 'prix', 'price', 'tarif') || 'Prix sur demande',
+      image: (() => {
+        const imageObj = getProperty(course, 'image', 'icone', 'icon');
+        // Si c'est un objet Strapi image, extraire l'URL ou utiliser un emoji par défaut
+        if (imageObj && typeof imageObj === 'object' && imageObj.url) {
+          return imageObj.url;
+        }
+        // Si c'est déjà une string (emoji ou URL), la retourner
+        if (typeof imageObj === 'string') {
+          return imageObj;
+        }
+        // Fallback emoji
+        return '📚';
+      })(),
+      link: getProperty(course, 'lien', 'link', 'url') || `/cours/${course.slug || course.id}`,
+      color: getProperty(course, 'couleur', 'color', 'classe_couleur') || 'from-blue-500 to-indigo-600',
+      icon: getProperty(course, "icon")
+    })) || []
 
-    // FORMATIONS GESTION DE PROJET
-    {
-      id: 10,
-      title: "Formation Gestion de Projet",
-      description: "Apprenez les fondamentaux de la gestion de projet et les méthodologies modernes.",
-      duration: "45 heures",
-      level: "Débutant",
-      format: "Hybride",
-      category: "gestion",
-      sessions: "2 fois/semaine",
-      price: "650€",
-      image: "📊",
-      link: "/formations/gestion-projet",
-      color: "from-cyan-500 to-blue-600"
-    },
-    {
-      id: 11,
-      title: "Certification PMP",
-      description: "Préparez-vous à la certification PMP (Project Management Professional).",
-      duration: "60 heures",
-      level: "Avancé",
-      format: "Présentiel",
-      category: "gestion",
-      sessions: "2 fois/semaine",
-      price: "890€",
-      image: "🏆",
-      link: "/formations/certification-pmp",
-      color: "from-emerald-500 to-teal-600"
-    },
-    {
-      id: 12,
-      title: "Méthodes Agile & Scrum",
-      description: "Maîtrisez les méthodologies Agile et devenez Scrum Master certifié.",
-      duration: "35 heures",
-      level: "Intermédiaire",
-      format: "En ligne",
-      category: "gestion",
-      sessions: "3 fois/semaine",
-      price: "720€",
-      image: "⚡",
-      link: "/formations/agile-scrum",
-      color: "from-lime-500 to-green-600"
-    },
+    // Transformation des catégories
+    const transformedCategories = [
+      { id: 'all', name: 'Tous les cours', icon: '📚' },
+      ...(categoriesData.data?.map(category => ({
+        id: category.attributes?.slug || category.slug || category.id,
+        name: category.attributes?.name || category.name || 'Catégorie sans nom',
+        icon: category.attributes?.icon || category.icon || '📚'
+      })) || [])
+    ]
 
-    // FORMATIONS SECRÉTARIAT INFORMATIQUE
-    {
-      id: 13,
-      title: "Secrétariat Informatique",
-      description: "Formation complète en bureautique : Word, Excel, PowerPoint et gestion administrative.",
-      duration: "50 heures",
-      level: "Débutant",
-      format: "Présentiel",
-      category: "secretariat",
-      sessions: "4 fois/semaine",
-      price: "480€",
-      image: "💻",
-      link: "/formations/secretariat-informatique",
-      color: "from-blue-500 to-purple-600"
-    },
-    {
-      id: 14,
-      title: "Assistant(e) de Direction",
-      description: "Développez les compétences avancées pour assister la direction d'entreprise.",
-      duration: "65 heures",
-      level: "Intermédiaire",
-      format: "Hybride",
-      category: "secretariat",
-      sessions: "3 fois/semaine",
-      price: "750€",
-      image: "👔",
-      link: "/formations/assistant-direction",
-      color: "from-indigo-500 to-blue-600"
-    },
-    {
-      id: 15,
-      title: "Gestion Documentaire Numérique",
-      description: "Maîtrisez la gestion électronique des documents et l'archivage numérique.",
-      duration: "30 heures",
-      level: "Intermédiaire",
-      format: "En ligne",
-      category: "secretariat",
-      sessions: "2 fois/semaine",
-      price: "380€",
-      image: "📁",
-      link: "/formations/gestion-documentaire",
-      color: "from-teal-500 to-cyan-600"
-    },
-
-    // FORMATIONS COMPTABILITÉ
-    {
-      id: 16,
-      title: "Comptabilité Générale",
-      description: "Apprenez les principes fondamentaux de la comptabilité et la tenue des livres.",
-      duration: "55 heures",
-      level: "Débutant",
-      format: "Présentiel",
-      category: "comptabilite",
-      sessions: "3 fois/semaine",
-      price: "620€",
-      image: "📈",
-      link: "/formations/comptabilite-generale",
-      color: "from-green-500 to-emerald-600"
-    },
-    {
-      id: 17,
-      title: "Comptabilité Analytique",
-      description: "Perfectionnez-vous en comptabilité analytique et contrôle de gestion.",
-      duration: "40 heures",
-      level: "Intermédiaire",
-      format: "Hybride",
-      category: "comptabilite",
-      sessions: "2 fois/semaine",
-      price: "580€",
-      image: "📊",
-      link: "/formations/comptabilite-analytique",
-      color: "from-amber-500 to-orange-600"
-    },
-    {
-      id: 18,
-      title: "Logiciels Comptables",
-      description: "Maîtrisez Sage, Ciel Compta et autres logiciels de comptabilité professionnels.",
-      duration: "45 heures",
-      level: "Intermédiaire",
-      format: "Présentiel",
-      category: "comptabilite",
-      sessions: "3 fois/semaine",
-      price: "680€",
-      image: "🧮",
-      link: "/formations/logiciels-comptables",
-      color: "from-purple-500 to-indigo-600"
+      setCourses(transformedCourses)
+      setCategories(transformedCategories)
+      
+    } catch (err) {
+      setError(err.message)
+      console.error('Erreur lors du chargement des données:', err)
+    } finally {
+      setLoading(false)
     }
-  ]
+  }
 
-  const categories = [
-    { id: 'all', name: 'Tous les cours', icon: '📚' },
-    { id: 'anglais', name: 'Cours d\'Anglais', icon: '🇬🇧' },
-    { id: 'japonais', name: 'Cours de Japonais', icon: '🇯🇵' },
-    { id: 'espagnol', name: 'Cours d\'Espagnol', icon: '🇪🇸' },
-    { id: 'gestion', name: 'Gestion de Projet', icon: '📊' },
-    { id: 'secretariat', name: 'Secrétariat Informatique', icon: '💻' },
-    { id: 'comptabilite', name: 'Comptabilité', icon: '📈' },
-    { id: 'tech', name: 'Développement Web', icon: '📈' }
-  ]
+  // Chargement des données au montage du composant
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  
 
   const levels = [
     { id: 'all', name: 'Tous niveaux' },
@@ -331,6 +139,39 @@ const Card = () => {
         return 'bg-gray-100 text-gray-800 border-gray-200'
     }
   }
+
+  // Affichage du loading
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Chargement des cours...</p>
+        </div>
+      </div>
+    )
+  }
+
+
+   // Affichage de l'erreur
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-4xl mb-4">❌</div>
+          <h3 className="text-xl font-semibold text-gray-900 mb-2">Erreur de chargement</h3>
+          <p className="text-gray-600 mb-4">{error}</p>
+          <button
+            onClick={fetchData}
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+          >
+            Réessayer
+          </button>
+        </div>
+      </div>
+    )
+  }
+
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -446,7 +287,7 @@ const Card = () => {
                 {/* Header avec gradient */}
                 <div className={`bg-gradient-to-r ${course.color} p-4 lg:p-6 text-white relative`}>
                   <div className="absolute top-3 lg:top-4 right-3 lg:right-4 text-2xl lg:text-3xl opacity-80">
-                    {course.image}
+                   <ReactCountryFlag countryCode={course.icon} svg />
                   </div>
                   <h3 className="text-lg lg:text-xl font-bold mb-2 lg:mb-3 pr-10 lg:pr-12 leading-tight">
                     {course.title}
@@ -479,7 +320,7 @@ const Card = () => {
                   
                   <div className="flex items-center justify-between">
                     <div className="text-xl lg:text-2xl font-bold text-gray-900">
-                      {course.price}
+                      {course.price} F CFA
                     </div>
                     
                     <div className="flex items-center text-blue-600 group-hover:text-blue-700 font-medium">
