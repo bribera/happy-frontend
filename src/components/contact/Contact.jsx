@@ -119,7 +119,7 @@ const Contact = () => {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 mt-18">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 pt-36">
       {/* Hero Section */}
       <section className="relative overflow-hidden h-full">
         <div className="absolute inset-0 ">
@@ -130,7 +130,7 @@ const Contact = () => {
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-28 h-full">
           <div className="text-center max-w-4xl mx-auto flex flex-col justify-center h-full">
             <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold mb-6 lg:mb-8 leading-tight text-white/90">
-              Contactez <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-300">FormationPro</span>
+              Contactez notre <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-300">Centre de Culture Japonaise Bénin</span>
             </h1>
             <p className="text-lg sm:text-xl lg:text-2xl opacity-90 leading-relaxed mb-8 lg:mb-12 text-white/90">
               Nous sommes là pour répondre à toutes vos questions et vous accompagner dans votre projet de formation

@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body className=" w-full h-full">
+      <body className="relative w-full h-full">
         <DynamicHead />
         {children}
         <Footer />
