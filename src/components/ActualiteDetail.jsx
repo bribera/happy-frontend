@@ -117,11 +117,6 @@ const ActualiteDetail = () => {
                       }}
                     />
                     <div className="text-base leading-relaxed space-y-4">
-                      {/* {article.content.split('. ').map((sentence, index) => (
-                        <p key={index} className="mb-4">
-                          {sentence}{sentence.endsWith('.') ? '' : '.'}
-                        </p>
-                      ))} */}
                       <BlocksRenderer
                         content={article?.content}
                         blocks={{                            
@@ -168,7 +163,6 @@ const ActualiteDetail = () => {
                   </div>
                 </div>
               </div>
-              {/* Related Articles could be added here */}
             </div>
           </div>
         )

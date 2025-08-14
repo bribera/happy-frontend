@@ -1,10 +1,40 @@
 import React from 'react'
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { Calendar, MapPin, Phone, Mail, Globe, Facebook, Instagram, Linkedin } from 'lucide-react';
+import { Calendar, MapPin, Phone, Mail, Globe} from 'lucide-react';
+import { IoLogoFacebook, IoLogoLinkedin } from 'react-icons/io5';
+import { GrInstagram } from 'react-icons/gr';
+import Image from 'next/image';
+import { getStrapiMedia } from '@/app/lib/api';
 
 
-const CoursTemplate = ({title, subtitle, description, instructor, targetAudience, originalPrice, currentPrice, schedule, location, phone, email, website, dates, highlights, image}) => {
+const CoursTemplate = ({ course }) => {
     
+ // Destructurez avec des valeurs par défaut
+    const {
+        title = '',
+        subtitle = '',
+        description = '',
+        instructor = { name: '', bio: '' },
+        targetAudience = '',
+        originalPrice = '',
+        currentPrice = '',
+        schedule = '',
+        location = 'Abomey-Calavi, Carefour Bidossessi, immeuble avant le supermarchet AZIMA dernier étage',
+        phone = '+229 97 65 29 99',
+        email = 'ccjbenin@gmail.com',
+        // website = 'https://nerdxacademy.com',
+        dates = '',
+        highlights = [],
+        image = "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=400&h=200&fit=crop"
+    } = course || {};
+
+  // Assurez-vous que title est une chaîne avant d'appeler split( )
+  const displayTitle = title || '';
+  const instructorName = instructor?.name || '';
+  const instructorBio = instructor?.bio || '';
+  const courseHighlights = highlights || [];
+
+
   return (
     <div className='bg-[#1b3d75] text-white '>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -17,7 +47,7 @@ const CoursTemplate = ({title, subtitle, description, instructor, targetAudience
                         <br />
                         <span className="text-orange-400">professionnelle en</span>
                         <br />
-                        <span className="text-white">{title.split(' ').slice(-2).join(' ')}</span>
+                        <span className="text-white">{displayTitle.split(' ').slice(-2).join(' ')}</span>
                     </h1>
                 </div>
 
@@ -40,7 +70,7 @@ const CoursTemplate = ({title, subtitle, description, instructor, targetAudience
                         Formateur(s)
                         </h2>
                         <p className="text-gray-300">
-                        <span className="font-semibold">{instructor.name}</span>, {instructor.bio}
+                        <span className="font-semibold">{instructorName}</span>, {instructorBio}
                         </p>
                     </div>
 
@@ -61,9 +91,9 @@ const CoursTemplate = ({title, subtitle, description, instructor, targetAudience
               <div className="bg-slate-800 p-4 text-center">
                 <h3 className="text-white font-bold text-lg">Nerdx Academy</h3>
                 <div className="flex justify-center space-x-4 mt-2">
-                  <Facebook className="w-5 h-5 text-white hover:text-orange-400 cursor-pointer" />
-                  <Instagram className="w-5 h-5 text-white hover:text-orange-400 cursor-pointer" />
-                  <Linkedin className="w-5 h-5 text-white hover:text-orange-400 cursor-pointer" />
+                  <IoLogoFacebook className="w-5 h-5 text-white hover:text-orange-400 cursor-pointer" />
+                  <GrInstagram className="w-5 h-5 text-white hover:text-orange-400 cursor-pointer" />
+                  <IoLogoLinkedin className="w-5 h-5 text-white hover:text-orange-400 cursor-pointer" />
                 </div>
               </div>
 
@@ -74,15 +104,17 @@ const CoursTemplate = ({title, subtitle, description, instructor, targetAudience
 
               {/* Image du cours */}
               <div className="relative">
-                <img 
-                  src={image || "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=400&h=200&fit=crop"} 
+                <Image
+                  width={200}
+                  height={200} 
+                  src={getStrapiMedia(image) || "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=400&h=200&fit=crop"} 
                   alt={title}
                   className="w-full h-48 object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                 <div className="absolute bottom-4 left-4 right-4">
                   <h4 className="text-white text-2xl font-bold">
-                    {title.split(' ').slice(-2).join(' ')}
+                    {displayTitle.split(' ' ).slice(-2).join(' ')}
                   </h4>
                 </div>
               </div>
@@ -91,7 +123,7 @@ const CoursTemplate = ({title, subtitle, description, instructor, targetAudience
               <div className="p-6 space-y-4">
                 {/* Points forts */}
                 <div className="space-y-2">
-                  {highlights.map((highlight, index) => (
+                  {courseHighlights.map((highlight, index) => (
                     <div key={index} className="flex items-center space-x-2">
                       <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
                       <span className="text-gray-700">{highlight}</span>
@@ -113,7 +145,7 @@ const CoursTemplate = ({title, subtitle, description, instructor, targetAudience
                     <Calendar className="w-5 h-5 text-orange-500" />
                     <div className="text-sm">
                       <div className="font-semibold">{schedule}</div>
-                      <div className="text-gray-600">Nerdx House (Logbessou von Maquié BN)</div>
+                      <div className="text-gray-600">{location}</div>
                     </div>
                   </div>
                 </div>

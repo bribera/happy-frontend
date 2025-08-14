@@ -87,7 +87,9 @@ const Navbar = ({variant}) => {
         }`}
         >
             <div className='flex justify-between items-center'>
-              <Image src="/logo.jpg" alt="Centre de Culture Japonaise Logo" width={50} height={50} className="h-[65px]" />
+              <Link href="/">
+                <Image src="/logo.jpg" alt="Centre de Culture Japonaise Logo" width={50} height={50} className="w-auto h-[65px]" />
+              </Link>
               <div className="" onClick={toggleMenu}>
                 <IoCloseOutline className="text-4xl cursor-pointer text-happy" />
               </div>

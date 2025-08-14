@@ -1,10 +1,22 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { Calendar, momentLocalizer } from 'react-big-calendar';
-import moment from 'moment';
+import { Calendar } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { format, parse, startOfWeek, getDay } from 'date-fns';
+import dateFnsLocalizer from 'react-big-calendar/lib/localizers/date-fns';
+import { fr } from 'date-fns/locale'; 
+
 // import { getAcademicEvents } from '../lib/strapi';
-const localizer = momentLocalizer(moment);
+const locales = {
+  'fr': fr,
+}
+const localizer = dateFnsLocalizer({
+  format,
+  parse,
+  startOfWeek,
+  getDay,
+  locales,
+});
 
 const CalendrierAcademique = () => {
     const [events, setEvents] = useState([]);
@@ -69,13 +81,13 @@ const CalendrierAcademique = () => {
     const generateICSContent = (events) => {
         let icsContent = 'BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Université//Calendrier Académique//FR\n';
         events.forEach(event => {
-            icsContent += `BEGIN:VEVENT\n`;
-            icsContent += `DTSTART:${moment(event.start).format('YYYYMMDD[T]HHmmss')}\n`;
-            icsContent += `DTEND:${moment(event.end).format('YYYYMMDD[T]HHmmss')}\n`;
-            icsContent += `SUMMARY:${event.title}\n`;
-            icsContent += `DESCRIPTION:${event.description || ''}\n`;
-            icsContent += `UID:${event.id}@universite.edu\n`;
-            icsContent += `END:VEVENT\n`;
+        icsContent += `BEGIN:VEVENT\n`;
+        icsContent += `DTSTART:${format(new Date(event.start), "yyyyMMdd'T'HHmmss")}\n`;
+        icsContent += `DTEND:${format(new Date(event.end), "yyyyMMdd'T'HHmmss")}\n`;
+        icsContent += `SUMMARY:${event.title}\n`;
+        icsContent += `DESCRIPTION:${event.description || ''}\n`;
+        icsContent += `UID:${event.id}@universite.edu\n`;
+        icsContent += `END:VEVENT\n`;
         });
         icsContent += 'END:VCALENDAR';
         return icsContent;

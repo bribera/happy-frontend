@@ -4,15 +4,19 @@ import { Calendar, User, ArrowRight, Play, Eye } from 'lucide-react';
 import Link from 'next/link';
 import { getStrapiMedia } from '@/app/lib/api';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
+import Image from 'next/image';
 
 
 const ArticleCard = ({article}) => (  
   <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
     <div className="relative">
-      <img 
+      <Image 
         src={getStrapiMedia(article.cover.url)} 
         alt={article.title}
         className="w-full h-48 object-cover"
+        width={200}
+        height={200}
+        priority
       />
       <div className="absolute top-3 right-3">
         {article.type === 'video' ? (

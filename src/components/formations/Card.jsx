@@ -38,10 +38,10 @@ const Card = () => {
     };
 
       // Transformation des données Strapi pour correspondre à votre structure
-      const transformedCourses = coursesData.data?.map(course => ({
+    const transformedCourses = coursesData.data?.map(course => ({
       id: course.id,
       title: getProperty(course, 'titre', 'title') || 'Titre non disponible', // Utiliser 'title' pas 'titre'
-      description: getProperty(course, 'description') || 'Description non disponible',
+      subtitle: getProperty(course, 'subtitle') || 'Sous-titre non disponible',
       duration: getProperty(course, 'duree', 'duration', 'durée') || 'Durée non spécifiée',
       level: getProperty(course, 'niveau', 'level') || 'Niveau non spécifié',
       format: getProperty(course, 'format', 'forme') || 'Format non spécifié',
@@ -305,7 +305,7 @@ const Card = () => {
                 {/* Contenu */}
                 <div className="p-4 lg:p-6 flex-grow flex flex-col">
                   <p className="text-sm lg:text-base text-gray-600 mb-4 leading-relaxed flex-grow">
-                    {course.description}
+                    {course.subtitle}
                   </p>
                   
                   {/* Badges */}
