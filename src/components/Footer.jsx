@@ -37,10 +37,10 @@ const menu = [
   //   name: "Agenda",
   //   path: "/agenda",
   // },
-  {
-    name: "Calendrier académique",
-    path: "/calendrier",
-  },
+  // {
+  //   name: "Calendrier académique",
+  //   path: "/calendrier",
+  // },
 ]
 
 const Footer = () => {

@@ -101,7 +101,7 @@ const CalendrierAcademique = () => {
       )
     }
   return (
-    <div className='mt-28 h-[120vh] bg'>
+    <div className='pt-28 h-[120vh] bg'>
       <div className="p-6 max-w-7xl mx-auto h-full">
         <div className="mb-6">
           <h2 className='text-3xl font-bold text-gray-900 mb-4'>Calendrier Académique</h2>
