@@ -16,7 +16,9 @@ const Head = ({className="", navbarVariant = "default"}) => {
             <div className={`bg-white ${className} h-fit px-10 py-2 shadow-md w-full flex justify-between items-center`}>
                 {/* logo */}
                 <div className="">
-                    <Image src="/logo.jpg" alt='Centre de culture japonaise' width={50} height={50} className='' />
+                    <Link href="/" className='cursor-pointer'>
+                        <Image src="/logo.jpg" alt='Centre de culture japonaise' width={50} height={50} className='w-auto h-auto' priority/>
+                    </Link>
                 </div>
                 {/* navbar */}
                 <div className="">

@@ -7,7 +7,7 @@ export default function CoursLayout({ children, title }) {
     <section className="bg">
         <Head className="!bg-blue-900"  navbarVariant="alternative" />
         {/* Breadcrumb */}
-        <div className="bg-gray-100 py-3 mt-28">
+        <div className="bg-gray-100 py-3 pt-28">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <nav className="flex" aria-label="Breadcrumb">
                     <ol className="flex items-center space-x-4">

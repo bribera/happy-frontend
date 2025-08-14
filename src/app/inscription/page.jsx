@@ -1,4 +1,4 @@
-import InscriptionForm from '@/components/inscrisption/FormInscription'
+import InscriptionForm from '@/components/inscription/FormInscription'
 import React from 'react'
 
 const page = () => {

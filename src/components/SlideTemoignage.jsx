@@ -5,43 +5,6 @@ import Image from "next/image";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { api, getStrapiMedia } from "@/app/lib/api";
 
-// const testimonials = [
-//    {
-//       id: 1,
-//       name: "Grace Doe",
-//       role: "Entrepreneur",
-//       image: "/femme.jpg",
-//       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ipsam temporibus quidem magni qui doloribus quasi natus inventore nisl velit minima."
-//     },
-//     {
-//       id: 2,
-//       name: "Beatrice Doe",
-//       role: "Entrepreneur", 
-//       image: "/apropos.jpg",
-//       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ipsam temporibus quidem magni qui doloribus quasi natus inventore nisl velit minima."
-//     },
-//     {
-//       id: 3,
-//       name: "Jean Doe",
-//       role: "Entrepreneur",
-//       image: "/femme.jpg",
-//       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ipsam temporibus quidem magni qui doloribus quasi natus inventore nisl velit minima."
-//     },
-//     {
-//       id: 5,
-//       name: "Sandra Doe",
-//       role: "Entrepreneur",
-//       image: "/jaune.jpg",
-//       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ipsam temporibus quidem magni qui doloribus quasi natus inventore nisl velit minima."
-//     },
-//     {
-//       id: 6,
-//       name: "Romeo Doe",
-//       role: "Entrepreneur",
-//       image: "/vert.jpg",
-//       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ipsam temporibus quidem magni qui doloribus quasi natus inventore nisl velit minima."
-//     }
-// ];
 
 export default function SlideTemoignage() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -161,7 +124,7 @@ export default function SlideTemoignage() {
                           alt={t.name}
                           width={50}
                           height={50}
-                          className="rounded-full object-cover"
+                          className="w-auto h-auto rounded-full object-cover"
                         />
                         <div className="text-left">
                           <h3 className="text-sm font-bold text-amber-600">{t.name}</h3>

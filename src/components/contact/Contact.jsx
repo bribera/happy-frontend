@@ -1,11 +1,28 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TiSocialFacebook, TiSocialInstagram } from "react-icons/ti";
 import { BiLogoTiktok, BiLogoTwitter } from "react-icons/bi";
 import Image from 'next/image';
 import ButtonAction from '../ButtonAction';
 import Link from 'next/link';
 import SecondButton from '../SecondButton';
+import dynamic from 'next/dynamic';
+import { Loader2 } from 'lucide-react';
+import { api } from '@/app/lib/api';
+import { BlocksRenderer } from '@strapi/blocks-react-renderer';
+
+
+const MapComponent = dynamic(() => import('./MapComponent'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-64 bg-gray-200 flex items-center justify-center rounded-lg">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+        <p className="mt-2 text-gray-600">Chargement de la carte...</p>
+      </div>
+    </div>
+  )
+});
 
 const Contact = () => {
 
@@ -18,6 +35,20 @@ const Contact = () => {
     message: ''
   })
   const [formStatus, setFormStatus] = useState('')
+
+  const centerLocation = {
+    position: [6.430077, 2.350947], // Coordonnées GPS précises d'AZIMA Store
+    name: 'Centre de Culture Japonaise Bénin',
+    address: 'Carrefour Bidossessi, immeuble avant le supermarché AZIMA, dernier étage',
+    details: 'Abomey-Calavi, Bénin',
+    phone: '+229 01 97 65 2999',
+    email: 'ccjbenin@gmail.com',
+    description: 'Centre de formation en langues (Japonais, Anglais, Espagnol) et compétences professionnelles. Situé au dernier étage de l\'immeuble avant le supermarché AZIMA Store, au carrefour Bidossessi.',
+    category: 'Centre de formation',
+    landmark: 'Supermarché AZIMA Store',
+    floor: 'Dernier étage',
+    directions: 'Immeuble situé juste avant le supermarché AZIMA au carrefour Bidossessi'
+  }
 
   const contactInfo = [
     {
@@ -81,7 +112,6 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Simulation d'envoi
     setFormStatus('sending')
     setTimeout(() => {
       setFormStatus('success')
@@ -103,34 +133,56 @@ const Contact = () => {
     { icon: <BiLogoTwitter />, name: 'Twitter', url: '#', color: 'hover:text-blue-400' }
   ]
 
-  const faq = [
-    {
-      question: 'Comment puis-je m\'inscrire à une formation ?',
-      answer: 'Vous pouvez vous inscrire en ligne, par téléphone ou en nous rendant visite. Nous vous accompagnons dans toutes les démarches.'
-    },
-    {
-      question: 'Mes formations sont-elles éligibles au CPF ?',
-      answer: 'Oui, la plupart de nos formations sont éligibles au CPF. Nous vous aidons à monter votre dossier de financement.'
-    },
-    {
-      question: 'Proposez-vous des formations en entreprise ?',
-      answer: 'Absolument ! Nous concevons des programmes sur mesure adaptés aux besoins spécifiques de votre entreprise.'
+  const [faq, setFaq] = useState([])
+    const [isFaqLoading, setIsFaqLoading] = useState(true)
+  
+    useEffect(() =>{
+      const fetchFaq = async () => {
+        setIsFaqLoading(true)
+         try {
+          const response = await api("/question-frequentes")
+          
+          if(response && response.data && response.data.length > 0) {
+            setFaq(response.data)
+          } else {
+            console.log("Erreur de report des questions fréquentes")
+            setFaq(null)
+          }
+        } catch (error) {
+          console.error("Erreur lors du chargement des questions", error)
+          setFaq(null)
+        } finally {
+          setIsFaqLoading(false)
+        }
+      }
+      
+      fetchFaq()
+    },[])
+  
+    if (isFaqLoading) {
+      return (
+        <div className="h-fit pt-10 flex items-center justify-center bg-gray-50">
+          <div className="text-center">
+            <Loader2 className="h-8 w-8 animate-spin text-blue-600 mx-auto mb-4" />
+            <p className="text-gray-600">Chargement des questions...</p>
+          </div>
+        </div>
+      );
     }
-  ]
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 pt-36">
       {/* Hero Section */}
       <section className="relative overflow-hidden h-full">
         <div className="absolute inset-0 ">
-          <Image alt='contact-header' src="/contact.jpg" width={500} height={200} className='w-full h-full object-center object-cover' />
+          <Image alt='contact-header' src="/contact.jpg" width={500} height={200} className='w-full h-full object-center object-cover' priority/>
         </div>
         <div className="absolute w-full h-full bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800  text-white opacity-30"></div>
         <div className="absolute inset-0 bg-black/30"></div>
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-28 h-full">
           <div className="text-center max-w-4xl mx-auto flex flex-col justify-center h-full">
             <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold mb-6 lg:mb-8 leading-tight text-white/90">
-              Contactez notre <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-300">Centre de Culture Japonaise Bénin</span>
+              Contactez notre <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-300">Centre de Culture Japonaise</span>
             </h1>
             <p className="text-lg sm:text-xl lg:text-2xl opacity-90 leading-relaxed mb-8 lg:mb-12 text-white/90">
               Nous sommes là pour répondre à toutes vos questions et vous accompagner dans votre projet de formation
@@ -339,13 +391,70 @@ const Contact = () => {
             {/* Map & Info */}
             <div className="space-y-6">
               {/* Map placeholder */}
-              <div className="bg-white rounded-xl p-6 shadow-lg">
+              {/* <div className="bg-white rounded-xl p-6 shadow-lg">
                 <h3 className="text-xl font-bold text-gray-900 mb-4">Nous trouver</h3>
                 <div className="bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg h-64 flex items-center justify-center">
                   <div className="text-center">
                     <div className="text-4xl mb-2">🗺️</div>
                     <p className="text-gray-600 font-medium">Carte interactive</p>
                     <p className="text-sm text-gray-500">123 Avenue de la Formation<br />75001 Paris, France</p>
+                  </div>
+                </div>
+              </div> */}
+               <div className="bg-white rounded-xl p-6 shadow-lg">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Nous trouver</h3>
+                <div className="rounded-lg overflow-hidden">
+                  <MapComponent 
+                    locations={[centerLocation]}
+                    center={centerLocation.position}
+                    zoom={17} // Zoom plus élevé pour voir les détails du quartier
+                    height="h-64"
+                    tileProvider="cartodb" // Utiliser CartoDB par défaut pour une meilleure visibilité
+                  />
+                </div>
+                <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                  <div className="flex items-start space-x-3">
+                    <div className="text-blue-600 text-xl">📍</div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">{centerLocation.name}</h4>
+                      <p className="text-sm text-gray-600 mt-1">{centerLocation.address}</p>
+                      <p className="text-sm text-gray-600">{centerLocation.details}</p>
+                      
+                      {/* Informations de localisation détaillées */}
+                      <div className="mt-3 p-3 bg-blue-50 rounded-lg">
+                        <p className="text-sm font-medium text-blue-800">🏢 Point de repère :</p>
+                        <p className="text-sm text-blue-700">{centerLocation.landmark}</p>
+                        <p className="text-sm text-blue-700">📍 {centerLocation.directions}</p>
+                        <p className="text-sm text-blue-700">🏢 {centerLocation.floor}</p>
+                      </div>
+                      
+                      <div className="flex flex-col sm:flex-row gap-2 mt-3">
+                        <a 
+                          href={`tel:${centerLocation.phone}`}
+                          className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 transition-colors"
+                        >
+                          📞 {centerLocation.phone}
+                        </a>
+                        <a 
+                          href={`mailto:${centerLocation.email}`}
+                          className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 transition-colors"
+                        >
+                          ✉️ {centerLocation.email}
+                        </a>
+                      </div>
+                      
+                      {/* Lien Google Maps pour navigation */}
+                      <div className="mt-3">
+                        <a 
+                          href={`https://www.google.com/maps/dir/?api=1&destination=${centerLocation.position[0]},${centerLocation.position[1]}&destination_place_id=ChIJAQAAAAAAAAAAAAAAAAAAAA`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center px-3 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors"
+                        >
+                          🗺️ Itinéraire Google Maps
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -386,13 +495,33 @@ const Contact = () => {
           <div className="max-w-4xl mx-auto space-y-6">
             {faq.map((item, index) => (
               <div key={index} className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 lg:p-8 shadow-sm">
-                <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-3 flex items-start">
-                  <span className="text-blue-600 mr-3 mt-1">❓</span>
-                  {item.question}
-                </h3>
-                <p className="text-gray-700 ml-8 leading-relaxed">
-                  {item.answer}
-                </p>
+                <div className="text-lg lg:text-xl font-bold text-gray-900 mb-3 flex items-start">
+                  <span className="text-blue-600 mr-3 mt-1">❓</span>               
+                  <BlocksRenderer
+                    content= {item.question}
+                    blocks={{                            
+                        heading: ({ children }) => {
+                        return (
+                            <h3 className=" text-gray-600 mb-4 line-clamp-3">
+                            {children}
+                            </h3>
+                        );
+                        }
+                    }}
+                  />
+                </div>
+                <BlocksRenderer
+                  content={item.reponse}
+                  blocks={{                            
+                      paragraph: ({ children }) => {
+                      return (
+                          <p className=" text-gray-700 ml-8 leading-relaxed">
+                          {children}
+                          </p>
+                      );
+                      },
+                  }}
+                />
               </div>
             ))}
           </div>
@@ -423,7 +552,7 @@ const Contact = () => {
                Découvrir nos formations
               </SecondButton>
             </Link>
-            <a href="tel:+33123456789" className="px-6 lg:px-8 py-3 lg:py-4 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-all">
+            <a href="tel:+229 01 97 65 29 99" className="px-6 lg:px-8 py-3 lg:py-4 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-all">
               Appeler maintenant
             </a>
           </div>
