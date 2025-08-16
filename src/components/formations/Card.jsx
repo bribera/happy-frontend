@@ -24,6 +24,8 @@ const Card = () => {
       const coursesData = await api('/cours-formations?populate=*')
       const categoriesData = await api('/categories')
 
+    //  const coursesData =  Array.isArray(response.data)
+
       console.log('Données courses reçues:', coursesData)
       console.log('Données categories reçues:', categoriesData)
 
@@ -46,7 +48,7 @@ const Card = () => {
       level: getProperty(course, 'niveau', 'level') || 'Niveau non spécifié',
       format: getProperty(course, 'format', 'forme') || 'Format non spécifié',
       category: course.category?.slug || getProperty(course, 'category') || 'general',
-      sessions: getProperty(course, 'sessions', 'seances') || 'Sessions non spécifiées',
+      sessions: getProperty(course, 'sessions', 'seances') || [],
       price: getProperty(course, 'prix', 'price', 'tarif') || 'Prix sur demande',
       image: (() => {
         const imageObj = getProperty(course, 'image', 'icone', 'icon');
@@ -78,6 +80,7 @@ const Card = () => {
 
       setCourses(transformedCourses)
       setCategories(transformedCategories)
+      console.log('cours transformated',transformedCourses)
       
     } catch (err) {
       setError(err.message)
@@ -297,7 +300,10 @@ const Card = () => {
                       {course.duration}
                     </span>
                     <span className="bg-white/20 px-2 py-1 rounded-full text-xs font-medium">
-                      {course.sessions}
+                      {course.sessions.length > 0
+                        ? `${course.sessions.length} session${course.sessions.length > 1 ? 's' : ''}`
+                        : 'Détails à venir'
+                      }
                     </span>
                   </div>
                 </div>
