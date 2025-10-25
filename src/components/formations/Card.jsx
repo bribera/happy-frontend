@@ -65,7 +65,7 @@ const Card = () => {
       })(),
       link: getProperty(course, 'lien', 'link', 'url') || `/cours/${course.slug || course.id}`,
       color: getProperty(course, 'couleur', 'color', 'classe_couleur') || 'from-blue-500 to-indigo-600',
-      icon: getProperty(course, "icon")
+      icon: getProperty(course, "icon") || 'FR',
     })) || []
 
     // Transformation des catégories
@@ -290,7 +290,21 @@ const Card = () => {
                 {/* Header avec gradient */}
                 <div className={`bg-gradient-to-r ${course.color} p-4 lg:p-6 text-white relative`}>
                   <div className="absolute top-3 lg:top-4 right-3 lg:right-4 text-2xl lg:text-3xl opacity-80">
-                   <ReactCountryFlag countryCode={course.icon} svg />
+                   {/* <ReactCountryFlag countryCode={course.icon} svg /> */}
+                    {course.icon ? (
+                      <ReactCountryFlag 
+                        countryCode={course.icon} 
+                        svg
+                        style={{
+                          width: '1.5em',
+                          height: '1.5em',
+                        }}
+                        title={course.title}
+                      />
+                    ) : (
+                      <span>📚</span> // Fallback si pas de code pays
+                    )}
+
                   </div>
                   <h3 className="text-lg lg:text-xl font-bold mb-2 lg:mb-3 pr-10 lg:pr-12 leading-tight">
                     {course.title}

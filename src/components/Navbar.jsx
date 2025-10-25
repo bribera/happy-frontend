@@ -12,7 +12,7 @@ const menu = [
   },
   {
     name: "Nos Formations",
-    path: "/formation",
+    path: "/formations",
   },
   {
     name: "A propos",
@@ -32,16 +32,6 @@ const Navbar = ({variant}) => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
-  // useEffect(() => {
-  //   const mobileNav = document.getElementById('mobile-nav');
-
-  //   if (isMenuOpen) {
-  //     mobileNav.style.transform = "translateX(0)";
-  //   } else {
-  //     mobileNav.style.transform = "translateX(-100%)";
-  //   }
-  // }, [isMenuOpen]);
 
 
   return (
@@ -75,10 +65,6 @@ const Navbar = ({variant}) => {
               ))
             )}
           </ul>
-              {/* <a href="" className="text-lg poppins-light">Nos Formations</a>
-              <a href="" className="text-lg poppins-light">A propos</a>
-              <a href="" className="text-lg poppins-light">Communauté</a> */}
-              {/* <a href="" className="btn-action text-lg rounded poppins-light signup" id="signup1">S'inscrire</a> */}
         </nav>
 
         {/* <!-- Mobile nav --> */}
@@ -112,22 +98,8 @@ const Navbar = ({variant}) => {
               >
                 S'inscrire
               </Link>
-              {/* <Link href="/formation" className="text-lg border-b-2 border-gray-600  poppins-light hover:bg-slate-200 p-3 rounded-lg">Nos Formations</Link>
-              <Link href="/apropos" className="text-lg border-b-2 border-gray-600  poppins-light hover:bg-slate-200 p-3 rounded-lg">A propos</Link>
-              <Link href="/contact" className="text-lg border-b-2 border-gray-600  poppins-light hover:bg-slate-200 p-3 rounded-lg">Contact</Link>
-              <Link href="/inscription" className="btn-action text-lg poppins-light signup">S'inscrire</Link> */}
             </div>
         </div>
-        {/* {variant === "default" && (
-          <div className="lg:hidden" id="menu-bar" onClick={toggleMenu}>
-            <IoMenuOutline className={`text-4xl cursor-pointer text-happy`}/>
-          </div>
-        )}
-        {variant === "alternative" && (
-          <div className="lg:hidden" id="menu-bar" onClick={toggleMenu}>
-            <IoMenuOutline className={`text-4xl cursor-pointer text-white`}/>
-          </div>
-        )} */}
         <div className="lg:hidden" id="menu-bar" onClick={toggleMenu}>
           {variant === "default" && (
             <IoMenuOutline className="text-4xl cursor-pointer text-happy" />
