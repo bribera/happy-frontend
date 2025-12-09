@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "name": "happy-science-vitrine",
+  "alias": ["happyscience-vitrine.vercel.app", "www.happyscience-vitrine.com"],
+  
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  
+  "env": {
+    "NODE_ENV": "production",
+    "NEXT_PUBLIC_APP_URL": "https://happyscience-vitrine.vercel.app",
+    "NEXT_PUBLIC_STRAPI_URL": "https://happyscience-7c38f3ffe9.strapi.cloud"
+  },
+  
+  "regions": ["cdg1"],
+  
+  "public": true,
+  
+  "github": {
+    "enabled": true,
+    "silent": false,
+    "autoJobCancelation": true
+  }
+}
