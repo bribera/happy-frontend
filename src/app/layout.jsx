@@ -2,6 +2,7 @@
 import DynamicHead from "@/components/DynamicHead";
 import "./globals.css";
 import Footer from "@/components/Footer";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 
 export const metadata = {
@@ -27,6 +28,7 @@ export default function RootLayout({ children }) {
         <DynamicHead />
         {children}
         <Footer />
+        <SpeedInsights />
       </body>
     </html>
   );
