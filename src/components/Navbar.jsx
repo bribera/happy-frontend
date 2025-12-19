@@ -41,7 +41,7 @@ const Navbar = ({variant}) => {
             {variant === "default" && (
               menu.map((item, index) => (
                 <li key={index} 
-                className='inline-block text-center relative ml-[40px] hover:text-happySecond hover:after:w-full
+                className='inline-block text-center relative hover:text-happySecond hover:after:w-full
                 after:absolute after:content-[""] after:bg-orange after:h-[3px] after:w-0 after:left-0 after:bottom-[-10px] after:transition
                 after:duration-500 after:ease-in-out after:scale-x-0 hover:after:scale-x-100 after:origin-left'
                 >
@@ -81,7 +81,7 @@ const Navbar = ({variant}) => {
               </div>
             </div>
             <div className="flex flex-col gap-y-4 mt-10">
-              {menu.slice(1).map((item, index) => (
+              {menu.map((item, index) => (
                 <Link 
                   key={index}
                   href={item.path} 

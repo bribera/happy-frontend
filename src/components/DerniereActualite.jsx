@@ -12,7 +12,7 @@ import { getStrapiMedia } from '@/app/lib/api';
 const NewCard = ({ article }) => {
   return (
 
-    <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+    <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 h-full">
       <div className="relative">
         <Image 
           src={getStrapiMedia(article?.cover?.url)} 
@@ -120,9 +120,9 @@ const DerniereActualite = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
+        <div className="grid md:grid-cols-2 gap-8 mb-12 h-full">
           {articles.slice(0, 2).map((article,id) => (
-            <Link href={`/actualites/${article.slug}/`} key={id} className="cursor-pointer">
+            <Link href={`/actualites/${article.slug}/`} key={id} className="cursor-pointer h-full ">
               <NewCard key={article.id} article={article} isPreview />
             </Link>
           ))}

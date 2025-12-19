@@ -13,7 +13,7 @@ const Head = ({className="", navbarVariant = "default"}) => {
             <Agree />
         </div>
         <div className=" w-full ">
-            <div className={`bg-white ${className} h-fit px-10 py-2 shadow-md w-full flex justify-between items-center`}>
+            <div className={`bg-white ${className} h-fit px-10 py-2 shadow-md w-full flex justify-between gap-8 items-center`}>
                 {/* logo */}
                 <div className="">
                     <Link href="/" className='cursor-pointer'>
