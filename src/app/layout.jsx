@@ -6,7 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 
 
 export const metadata = {
-  title: "Happy Science",
+  title: "CCJ Bénin - Centre de Culture Japonaise Bénin",
   description: "Professional Training Center",
 };
 
