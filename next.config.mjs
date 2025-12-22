@@ -36,7 +36,6 @@ const nextConfig = {
             },
         ],
 
-        domains: (process.env.IMAGE_DOMAINS || "cloudinary.com").split(","),
     },
 
      // Optimisation générale
@@ -132,6 +131,9 @@ const nextConfig = {
     // Configuration pour les images optimisées
     experimental: {
         optimizeCss: true,
+        turbopack: {
+            root: './', // or the relative path to your project directory
+        },
     }
 };
 
