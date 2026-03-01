@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
-import Image from "next/image";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { api, getStrapiMedia } from "@/app/lib/api";
 
@@ -120,7 +119,7 @@ export default function SlideTemoignage() {
                       />
                       <div className="flex items-center justify-center gap-3 mt-4 rounded-full">
                         <div className="w-12 h-12 lg:w-16 lg:h-16 rounded-full overflow-hidden flex-shrink-0">
-                          <Image
+                          <img
                             src={getStrapiMedia(t.image.url)}
                             alt={t.name}
                             width={50}

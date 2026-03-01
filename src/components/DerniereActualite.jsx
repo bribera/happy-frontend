@@ -1,6 +1,5 @@
 'use client'
 import { ArrowRight, Calendar, Eye, Loader2, Play, User } from 'lucide-react'
-import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import ButtonAction from './ButtonAction';
@@ -14,7 +13,7 @@ const NewCard = ({ article }) => {
 
     <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 h-full">
       <div className="relative">
-        <Image 
+        <img 
           src={getStrapiMedia(article?.cover?.url)} 
           alt={article.title}
           width={500}

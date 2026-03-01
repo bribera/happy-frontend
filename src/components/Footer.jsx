@@ -1,5 +1,4 @@
 "use client"
-import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
@@ -7,6 +6,7 @@ import { BiLogoTiktok, BiLogoTwitter } from 'react-icons/bi'
 import { TiSocialFacebook, TiSocialInstagram } from 'react-icons/ti'
 import { TbArrowNarrowRight } from "react-icons/tb";
 import ButtonAction from './ButtonAction'
+import Image from 'next/image'
 
 const menu = [
   {

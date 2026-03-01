@@ -3,7 +3,6 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { Calendar, MapPin, Phone, Mail, Globe} from 'lucide-react';
 import { IoLogoFacebook, IoLogoLinkedin } from 'react-icons/io5';
 import { GrInstagram } from 'react-icons/gr';
-import Image from 'next/image';
 import { getStrapiMedia } from '@/app/lib/api';
 
 
@@ -104,7 +103,7 @@ const CoursTemplate = ({ course }) => {
 
               {/* Image du cours */}
               <div className="relative">
-                <Image
+                <img
                   width={200}
                   height={200} 
                   src={getStrapiMedia(image) || "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=400&h=200&fit=crop"} 
