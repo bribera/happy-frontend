@@ -2,10 +2,10 @@
 import React, { useState } from 'react'
 import { Fade } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
-import Image from 'next/image';
 import { MdOutlineNavigateNext } from "react-icons/md";
 import { GrFormPrevious } from "react-icons/gr";
 import ButtonAction from './ButtonAction';
+import Image from 'next/image';
 
 
 
@@ -22,7 +22,7 @@ const SlideImageHeader = () => {
             <div onClick={() => {
                 console.log('Précédent');
                 window.scrollTo({top:0, behavior:'smooth'});
-            }} className="ml-2 lg:ml-0 lg:!-left-10 p-2 bg-white/90 top-1/2 rounded-full shadow hover:bg-white text-happy cursor-pointer z-10">
+            }} className="ml-2 lg:ml-3 lg:!-left-10 p-2 bg-blue-200/50 top-1/2 rounded-full shadow hover:bg-white text-happy cursor-pointer z-10">
                 <GrFormPrevious size={20} />
             </div>
         ),
@@ -30,7 +30,7 @@ const SlideImageHeader = () => {
             <div onClick={() => {
                 console.log('Suivant');
                 window.scrollTo({top:0, behavior:'smooth'});
-            }} className="mr-2 lg:mr-0 lg:!-right-10 p-2 bg-white/90 top-1/2 rounded-full shadow hover:bg-white text-happy cursor-pointer z-10">
+            }} className="mr-2 lg:mr-3 lg:!-right-10 p-2 bg-blue-200/50 top-1/2 rounded-full shadow hover:bg-white text-happy cursor-pointer z-10">
                 <MdOutlineNavigateNext size={20}/>
             </div>
         ),
@@ -79,8 +79,8 @@ const SlideImageHeader = () => {
                             </ButtonAction>
                         </div>
                         {/* image */}
-                        <div className="w-full flex justify-end">
-                            <Image src={slide.image} alt={slide.title} width={600} height={400} className='rounded-xl object-cover shadow'/>
+                        <div className="w-full flex justify-center lg:justify-end lg:items-end">
+                            <Image src={slide.image} alt={slide.title} unoptimized width={600} height={400} className='rounded-xl object-cover shadow'/>
                         </div>
                     </div>
                 ))

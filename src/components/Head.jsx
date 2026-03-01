@@ -1,9 +1,9 @@
-import Image from 'next/image'
 import React from 'react'
 import Navbar from './Navbar'
 import ButtonAction from './ButtonAction'
 import Link from 'next/link'
 import Agree from './Agree'
+import Image from 'next/image'
 
 const Head = ({className="", navbarVariant = "default"}) => {
   return (
