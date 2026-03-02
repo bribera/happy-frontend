@@ -83,7 +83,7 @@ const ActualiteDetail = () => {
                     </div>
                     <div className="flex items-center gap-1">
                       <Calendar size={14} />
-                      <span>{article.date}</span>
+                      <span>{article?.date}</span>
                     </div>
                     <span className="bg-gray-100 px-2 py-1 rounded">
                       {article?.views} vues
@@ -141,8 +141,8 @@ const ActualiteDetail = () => {
                           {article.author?.name.charAt(0)}
                         </div>
                         <div>
-                          <p className="font-semibold text-gray-800">{article.author.name}</p>
-                          <p className="text-sm text-gray-500">Publié le {article.date}</p>
+                          <p className="font-semibold text-gray-800">{article.author?.name}</p>
+                          <p className="text-sm text-gray-500">Publié le {article?.date}</p>
                         </div>
                       </div>
                       

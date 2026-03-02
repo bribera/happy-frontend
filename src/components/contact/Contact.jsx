@@ -416,30 +416,30 @@ const Contact = () => {
                   <div className="flex items-start space-x-3">
                     <div className="text-blue-600 text-xl">📍</div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">{centerLocation.name}</h4>
-                      <p className="text-sm text-gray-600 mt-1">{centerLocation.address}</p>
-                      <p className="text-sm text-gray-600">{centerLocation.details}</p>
+                      <h4 className="font-semibold text-gray-900">{centerLocation?.name}</h4>
+                      <p className="text-sm text-gray-600 mt-1">{centerLocation?.address}</p>
+                      <p className="text-sm text-gray-600">{centerLocation?.details}</p>
                       
                       {/* Informations de localisation détaillées */}
                       <div className="mt-3 p-3 bg-blue-50 rounded-lg">
                         <p className="text-sm font-medium text-blue-800">🏢 Point de repère :</p>
-                        <p className="text-sm text-blue-700">{centerLocation.landmark}</p>
-                        <p className="text-sm text-blue-700">📍 {centerLocation.directions}</p>
-                        <p className="text-sm text-blue-700">🏢 {centerLocation.floor}</p>
+                        <p className="text-sm text-blue-700">{centerLocation?.landmark}</p>
+                        <p className="text-sm text-blue-700">📍 {centerLocation?.directions}</p>
+                        <p className="text-sm text-blue-700">🏢 {centerLocation?.floor}</p>
                       </div>
                       
                       <div className="flex flex-col sm:flex-row gap-2 mt-3">
                         <a 
-                          href={`tel:${centerLocation.phone}`}
+                          href={`tel:${centerLocation?.phone}`}
                           className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 transition-colors"
                         >
-                          📞 {centerLocation.phone}
+                          📞 {centerLocation?.phone}
                         </a>
                         <a 
-                          href={`mailto:${centerLocation.email}`}
+                          href={`mailto:${centerLocation?.email}`}
                           className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 transition-colors"
                         >
-                          ✉️ {centerLocation.email}
+                          ✉️ {centerLocation?.email}
                         </a>
                       </div>
                       
@@ -466,11 +466,11 @@ const Contact = () => {
                   {socialLinks.map((social, index) => (
                     <a
                       key={index}
-                      href={social.url}
+                      href={social?.url}
                       className={`flex items-center p-3 rounded-lg border border-gray-200 hover:border-gray-300 transition-all transform hover:scale-105 ${social.color}`}
                     >
-                      <span className="text-2xl mr-3">{social.icon}</span>
-                      <span className="font-medium">{social.name}</span>
+                      <span className="text-2xl mr-3">{social?.icon}</span>
+                      <span className="font-medium">{social?.name}</span>
                     </a>
                   ))}
                 </div>

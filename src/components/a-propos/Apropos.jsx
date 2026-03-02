@@ -188,9 +188,9 @@ const Apropos = () => {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center p-6 lg:p-8 rounded-xl bg-gradient-to-br from-gray-50 to-blue-50 hover:shadow-lg transition-all transform hover:scale-105">
-                <div className="text-3xl lg:text-4xl mb-3 lg:mb-4">{stat.icon}</div>
-                <div className="text-2xl lg:text-4xl font-bold text-gray-900 mb-2">{stat.number}</div>
-                <div className="text-sm lg:text-base text-gray-600 font-medium">{stat.label}</div>
+                <div className="text-3xl lg:text-4xl mb-3 lg:mb-4">{stat?.icon}</div>
+                <div className="text-2xl lg:text-4xl font-bold text-gray-900 mb-2">{stat?.number}</div>
+                <div className="text-sm lg:text-base text-gray-600 font-medium">{stat?.label}</div>
               </div>
             ))}
           </div>
@@ -293,13 +293,13 @@ const Apropos = () => {
                 <div key={index} className="bg-white rounded-xl p-6 lg:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
                   <div className="text-center">
                     <div className="text-sm lg:text-xl mb-4 lg:mb-6 rounded-full flex items-center justify-center mx-auto w-32 h-32 bg-gray-100">
-                      <Image width={30} height={30} src={getStrapiMedia(member.cover.url)} alt={member.cover.name} className=' w-full h-full object-cover object-center rounded-full'/>
+                      <Image width={30} height={30} src={getStrapiMedia(member?.cover?.url)} alt={member.cover?.name} className=' w-full h-full object-cover object-center rounded-full'/>
                     </div>
-                    <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-2">{member.name}</h3>
-                    <p className="text-blue-600 font-semibold mb-1">{member.role}</p>
-                    <p className="text-sm text-gray-600 mb-2">{member.domaine}</p>
+                    <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-2">{member?.name}</h3>
+                    <p className="text-blue-600 font-semibold mb-1">{member?.role}</p>
+                    <p className="text-sm text-gray-600 mb-2">{member?.domaine}</p>
                     <div className="inline-block bg-gray-100 px-3 py-1 rounded-full text-xs font-medium text-gray-700 mb-4">
-                      {member.year_experience} ans d'expérience
+                      {member?.year_experience} ans d'expérience
                     </div>
                     <BlocksRenderer
                       content={member?.description}
@@ -337,9 +337,9 @@ const Apropos = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {certifications.map((cert, index) => (
               <div key={index} className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 lg:p-8 text-center hover:shadow-lg transition-all transform hover:scale-105">
-                <div className="text-4xl lg:text-5xl mb-4 lg:mb-6">{cert.icon}</div>
-                <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-2 lg:mb-3">{cert.name}</h3>
-                <p className="text-sm lg:text-base text-gray-600">{cert.description}</p>
+                <div className="text-4xl lg:text-5xl mb-4 lg:mb-6">{cert?.icon}</div>
+                <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-2 lg:mb-3">{cert?.name}</h3>
+                <p className="text-sm lg:text-base text-gray-600">{cert?.description}</p>
               </div>
             ))}
           </div>

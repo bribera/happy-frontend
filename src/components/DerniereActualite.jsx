@@ -57,14 +57,14 @@ const NewCard = ({ article }) => {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1">
               <User size={14} />
-              {article.author.name}
+              {article.author?.name}
             </div>
             <div className="flex items-center gap-1">
               <Calendar size={14} />
-              {article.date}
+              {article?.date}
             </div>
           </div>
-          <span className="text-blue-600 font-medium">{article.readTime}</span>
+          <span className="text-blue-600 font-medium">{article?.readTime}</span>
         </div>
       </div>
     </div>
@@ -121,8 +121,8 @@ const DerniereActualite = () => {
 
         <div className="grid md:grid-cols-2 gap-8 mb-12 h-full">
           {articles.slice(0, 2).map((article,id) => (
-            <Link href={`/actualites/${article.slug}/`} key={id} className="cursor-pointer h-full ">
-              <NewCard key={article.id} article={article} isPreview />
+            <Link href={`/actualites/${article?.slug}/`} key={id} className="cursor-pointer h-full ">
+              <NewCard key={article?.id} article={article} isPreview />
             </Link>
           ))}
         </div>

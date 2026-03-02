@@ -208,7 +208,7 @@ const Card = () => {
                 >
                   <div className="flex items-center justify-center space-x-1 lg:space-x-2">
                     <span className="text-sm lg:text-base">{category.icon}</span>
-                    <span className="truncate">{category.name}</span>
+                    <span className="truncate">{category?.name}</span>
                   </div>
                 </button>
               ))}
@@ -230,7 +230,7 @@ const Card = () => {
                         : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
                     }`}
                   >
-                    {level.name}
+                    {level?.name}
                   </button>
                 ))}
               </div>
@@ -249,7 +249,7 @@ const Card = () => {
                         : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
                     }`}
                   >
-                    {format.name}
+                    {format?.name}
                   </button>
                 ))}
               </div>
@@ -293,13 +293,13 @@ const Card = () => {
                    {/* <ReactCountryFlag countryCode={course.icon} svg /> */}
                     {course.icon ? (
                       <ReactCountryFlag 
-                        countryCode={course.icon} 
+                        countryCode={course?.icon} 
                         svg
                         style={{
                           width: '1.5em',
                           height: '1.5em',
                         }}
-                        title={course.title}
+                        title={course?.title}
                       />
                     ) : (
                       <span>📚</span> // Fallback si pas de code pays
@@ -307,11 +307,11 @@ const Card = () => {
 
                   </div>
                   <h3 className="text-lg lg:text-xl font-bold mb-2 lg:mb-3 pr-10 lg:pr-12 leading-tight">
-                    {course.title}
+                    {course?.title}
                   </h3>
                   <div className="flex flex-wrap gap-1 lg:gap-2">
                     <span className="bg-white/20 px-2 py-1 rounded-full text-xs font-medium">
-                      {course.duration}
+                      {course?.duration}
                     </span>
                     <span className="bg-white/20 px-2 py-1 rounded-full text-xs font-medium">
                       {course.sessions.length > 0
@@ -325,22 +325,22 @@ const Card = () => {
                 {/* Contenu */}
                 <div className="p-4 lg:p-6 flex-grow flex flex-col">
                   <p className="text-sm lg:text-base text-gray-600 mb-4 leading-relaxed flex-grow">
-                    {course.subtitle}
+                    {course?.subtitle}
                   </p>
                   
                   {/* Badges */}
                   <div className="flex flex-wrap gap-2 mb-4">
                     <span className={`px-2 py-1 rounded-md text-xs font-medium border ${getLevelColor(course.level)}`}>
-                      {course.level}
+                      {course?.level}
                     </span>
                     <span className={`px-2 py-1 rounded-md text-xs font-medium border ${getFormatColor(course.format)}`}>
-                      {course.format}
+                      {course?.format}
                     </span>
                   </div>
                   
                   <div className="flex items-center justify-between">
                     <div className="text-xl lg:text-2xl font-bold text-gray-900">
-                      {course.price} F CFA
+                      {course?.price} F CFA
                     </div>
                     
                     <div className="flex items-center text-blue-600 group-hover:text-blue-700 font-medium">
@@ -354,7 +354,7 @@ const Card = () => {
                 
                 {/* Barre de progression (décorative) */}
                 <div className="h-1 bg-gray-100">
-                  <div className={`h-full bg-gradient-to-r ${course.color} w-0 group-hover:w-full transition-all duration-700 ease-out`}></div>
+                  <div className={`h-full bg-gradient-to-r ${course?.color} w-0 group-hover:w-full transition-all duration-700 ease-out`}></div>
                 </div>
               </div>
             </Link>

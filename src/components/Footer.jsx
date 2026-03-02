@@ -15,7 +15,7 @@ const menu = [
   },
   {
     name: "Nos Formations",
-    path: "/formation",
+    path: "/formations",
   },
   {
     name: "A propos",
@@ -86,7 +86,7 @@ const Footer = () => {
                   after:duration-500 after:ease-in-out after:scale-x-0 hover:after:scale-x-100 after:origin-left'
                   >
                     <Link href={item.path} className={`${item.path=== pathname ?"text-happyThird font-medium" : ""} cursor-pointer flex items-center`}>
-                      <span className='mr-1'><TbArrowNarrowRight /></span><span className="text-[16px] font-light">{item.name}</span>
+                      <span className='mr-1'><TbArrowNarrowRight /></span><span className="text-[16px] font-light">{item?.name}</span>
                     </Link>
                   </li>
                 ))
