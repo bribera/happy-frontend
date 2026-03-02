@@ -46,7 +46,7 @@ const Navbar = ({variant}) => {
                 after:duration-500 after:ease-in-out after:scale-x-0 hover:after:scale-x-100 after:origin-left'
                 >
                   <Link href={item.path} className={`${item.path=== pathname ?"text-happy font-medium" : ""} cursor-pointer`}>
-                    <span className="text-lg font-light">{item.name}</span>
+                    <span className="text-lg font-light">{item?.name}</span>
                   </Link>
                 </li>
               ))
@@ -59,7 +59,7 @@ const Navbar = ({variant}) => {
                 after:duration-500 after:ease-in-out after:scale-x-0 hover:after:scale-x-100 after:origin-left'
                 >
                   <Link href={item.path} className={`${item.path=== pathname ?"text-happy font-medium" : ""} cursor-pointer`}>
-                    <span className="text-lg font-light">{item.name}</span>
+                    <span className="text-lg font-light">{item?.name}</span>
                   </Link>
                 </li>
               ))
@@ -88,7 +88,7 @@ const Navbar = ({variant}) => {
                   className="text-lg border-b-2 border-gray-600 poppins-light hover:bg-slate-200 p-3 rounded-lg"
                   onClick={() => setIsMenuOpen(false)} // Close menu on link click
                 >
-                  {item.name}
+                  {item?.name}
                 </Link>
               ))}
               <Link 

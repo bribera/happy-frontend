@@ -132,15 +132,14 @@ const ListFormation = () => {
             <div className="flex space-x-6 pb-6">
                 {
                     formations.map((item, index) => (
-                        <Link key={item.id} href={item.link}  className='px-4 md:px-8 py-2 md:py-4 text-center border-2 md:border-4 !border-happy rounded-2xl bg-white hover:bg-happy hover:text-white transition'>
+                        <Link key={item.id} href={item?.link}  className='px-4 md:px-8 py-2 md:py-4 text-center border-2 md:border-4 !border-happy rounded-2xl bg-white hover:bg-happy hover:text-white transition'>
                             <span className="text-base md:text-2xl" >
-                                {item.name}
+                                {item?.name}
                             </span>
                         </Link>
                     ))
                 }
             </div>
-            {/* <div className="custom-scroll w-full h-4"></div> */}
         </div>
     </div>
   )

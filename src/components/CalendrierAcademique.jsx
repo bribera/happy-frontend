@@ -106,7 +106,7 @@ const CalendrierAcademique = () => {
         <div className="mb-6">
           <h2 className='text-3xl font-bold text-gray-900 mb-4'>Calendrier Académique</h2>
           <div className="flex flex-wrap gap-4 mb-4 p-4 bg-gray-50 rounded-lg">
-            <select name="" id=""  value={filters.eventType} 
+            <select name="" id=""  value={filters?.eventType} 
             onChange={(e) => setFilters(Object.assign(Object.assign({}, filters), { eventType: e.target.value }))}
             className='px-3 py-2 border border-gray-300 rounded-md'
             >

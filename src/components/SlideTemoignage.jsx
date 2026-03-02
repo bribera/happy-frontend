@@ -121,14 +121,14 @@ export default function SlideTemoignage() {
                         <div className="w-12 h-12 lg:w-16 lg:h-16 rounded-full overflow-hidden flex-shrink-0">
                           <img
                             src={getStrapiMedia(t.image.url)}
-                            alt={t.name}
+                            alt={t?.name}
                             width={50}
                             height={50}
                             className="w-full h-full rounded-full object-cover rounded-full border-2 border-amber-400"
                           />
                         </div>
                         <div className="text-left">
-                          <h3 className="text-sm font-bold text-amber-600">{t.name}</h3>
+                          <h3 className="text-sm font-bold text-amber-600">{t?.name}</h3>
                           <p className="text-xs text-gray-400">{t.role}</p>
                         </div>
                       </div>

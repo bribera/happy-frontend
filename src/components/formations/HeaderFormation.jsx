@@ -6,7 +6,7 @@ const HeaderFormation = () => {
   return (
     <div className='relative w-full h-[60vh]'>
         <div className="absolute w-full h-full ">
-            <Image src="/formation.png" alt='salle de formation' width={600} height={400} className='w-full h-full object-cover object-center' />
+            <Image src="/formation_left.png" alt='salle de formation' width={600} height={400} className='w-full h-full object-cover object-center' />
         </div>
         <div className="inset-0 absolute  bg-blue-950/70 w-full h-full"></div>
         <div className="absolute top-0 px-20 py-16 w-full h-full flex justify-start items-center">

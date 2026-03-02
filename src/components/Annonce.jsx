@@ -57,7 +57,7 @@ const Annonce = () => {
           </div>
           <div className="">
             {date ? (
-              <p className='text-base md:text-xl lg:text-3xl'>{formatDate(date.demarrage)}</p>
+              <p className='text-base md:text-xl lg:text-3xl'>{formatDate(date?.demarrage)}</p>
             ) : (
               <p className='text-base md:text-xl lg:text-3xl italic'>Aucune date pour l'instant</p>
             )}

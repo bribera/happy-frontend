@@ -237,16 +237,16 @@ const CoursTablePrograme = () => {
                 {courseDetails[activeTab].map((module, index) => (
                   <tr key={index} className="hover:bg-gray-50 transition-colors">
                     <td className="border border-gray-300 px-4 py-3 font-semibold text-gray-800">
-                      {module.module}
+                      {module?.module}
                     </td>
                     <td className="border border-gray-300 px-4 py-3 text-gray-600 whitespace-pre-line">
-                      {module.semaine}
+                      {module?.semaine}
                     </td>
                     <td className="border border-gray-300 px-4 py-3 text-gray-600 font-medium">
-                      {module.heures}
+                      {module?.heures}
                     </td>
                     <td className="border border-gray-300 px-4 py-3 text-gray-600">
-                      {module.objectifs}
+                      {module?.objectifs}
                     </td>
                   </tr>
                 ))}
