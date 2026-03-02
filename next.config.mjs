@@ -24,10 +24,16 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: process.env.IMAGE_PROTOCOL || "https",
-                hostname: process.env.IMAGE_HOSTNAME || "cloudinary.com",
+                hostname: process.env.IMAGE_HOSTNAME || "res.cloudinary.com",
                 port: process.env.IMAGE_PORT || "",
                 pathname: process.env.IMAGE_PATHNAME || "/**",
             },
+            {
+        protocol: 'https',
+        hostname: 'happy-backend-54c9.onrender.com', // ← ajoute ton Strapi
+        port: '',
+        pathname: '/**',
+    },
             {
                 protocol: 'https',
                 hostname: '*.media.strapiapp.com', // Autorise tous les sous-domaines de media.strapiapp.com
