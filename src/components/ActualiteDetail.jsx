@@ -21,6 +21,7 @@ const ActualiteDetail = () => {
           if (response && response.data) {
             setArticles(response.data[0])
           }
+          console.log(response.data)
         } catch (error) {
           console.log(error)
         }finally{
@@ -68,8 +69,8 @@ const ActualiteDetail = () => {
 
               <div className="bg-white rounded-xl shadow-lg overflow-hidden">
                 <img 
-                  src={getStrapiMedia(article.cover.url)} 
-                  alt={article.title}
+                  src={getStrapiMedia(article.cover?.url)} 
+                  alt={article?.title}
                   className="w-full h-64 md:h-80 object-cover"
                 />
                 
@@ -78,28 +79,28 @@ const ActualiteDetail = () => {
                   <div className="flex flex-wrap items-center gap-4 mb-6 text-sm text-gray-500">
                     <div className="flex items-center gap-1">
                       <User size={14} />
-                      <span className="font-medium">{article.author.name}</span>
+                      <span className="font-medium">{article.author?.name}</span>
                     </div>
                     <div className="flex items-center gap-1">
                       <Calendar size={14} />
                       <span>{article.date}</span>
                     </div>
                     <span className="bg-gray-100 px-2 py-1 rounded">
-                      {article.views} vues
+                      {article?.views} vues
                     </span>
                     <span className="bg-blue-100 text-blue-600 px-2 py-1 rounded font-medium">
-                      {article.readTime}
+                      {article?.readTime}
                     </span>
                     <span className={`px-2 py-1 rounded text-white text-xs ${
-                      article.type === 'video' ? 'bg-red-500' : 'bg-blue-500'
+                      article?.type === 'video' ? 'bg-red-500' : 'bg-blue-500'
                     }`}>
-                      {article.type === 'video' ? 'Vidéo' : 'Article'}
+                      {article?.type === 'video' ? 'Vidéo' : 'Article'}
                     </span>
                   </div>
                   
                   {/* Article Title */}
                   <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6 leading-tight">
-                    {article.title}
+                    {article?.title}
                   </h1>
                   
                   {/* Article Content */}
@@ -137,7 +138,7 @@ const ActualiteDetail = () => {
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
-                          {article.author.name.charAt(0)}
+                          {article.author?.name.charAt(0)}
                         </div>
                         <div>
                           <p className="font-semibold text-gray-800">{article.author.name}</p>
