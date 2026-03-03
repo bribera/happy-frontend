@@ -192,7 +192,7 @@ const Card = () => {
                         <ReactCountryFlag
                           countryCode={category.icon}
                           svg
-                          style={{ width: '0.5em', height: '0.5em' }}
+                          style={{ width: '1.5em', height: '1.5em' }}
                           title={category?.title}
                         />
                       ) : (
