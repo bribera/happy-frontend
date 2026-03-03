@@ -187,7 +187,18 @@ const Card = () => {
                   }`}
                 >
                   <div className="flex items-center justify-center space-x-1 lg:space-x-2">
-                    <span className="text-sm lg:text-base">{category?.icon}</span>
+                    <span className="text-sm lg:text-base">
+                      {category.icon ? (
+                        <ReactCountryFlag
+                          countryCode={category.icon}
+                          svg
+                          style={{ width: '0.5em', height: '0.5em' }}
+                          title={category?.title}
+                        />
+                      ) : (
+                        <span>📚</span>
+                      )}
+                    </span>
                     <span className="truncate">{category?.name}</span>
                   </div>
                 </button>
