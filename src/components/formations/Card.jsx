@@ -188,15 +188,14 @@ const Card = () => {
                 >
                   <div className="flex items-center justify-center space-x-1 lg:space-x-2">
                     <span className="text-sm lg:text-base">
-                      {category.icon ? (
+                      {/^[A-Z]{2}$/.test(category.icon) ? (
                         <ReactCountryFlag
-                          countryCode={category.icon}
-                          svg
-                          style={{ width: '1.5em', height: '1.5em' }}
-                          title={category?.title}
-                        />
-                      ) : (
-                        <span>📚</span>
+                            countryCode={category.icon}
+                            svg
+                            style={{ width: '1.2em', height: '1.2em' }}
+                          />
+                        ) : (
+                          <span className="text-sm lg:text-base">📚 || {category.icon}</span>
                       )}
                     </span>
                     <span className="truncate">{category?.name}</span>
