@@ -195,7 +195,7 @@ const Card = () => {
                             style={{ width: '1.2em', height: '1.2em' }}
                           />
                         ) : (
-                          <span className="text-sm lg:text-base">📚 || {category.icon}</span>
+                          <span className="text-sm lg:text-base">{category.icon}</span>
                       )}
                     </span>
                     <span className="truncate">{category?.name}</span>
