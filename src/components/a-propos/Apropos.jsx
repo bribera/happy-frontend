@@ -292,7 +292,7 @@ const Apropos = () => {
               {teams.map((member, index) => (
                 <div key={index} className="bg-white rounded-xl p-6 lg:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
                   <div className="text-center">
-                    <div className="w-[30px] h-[30px] text-sm lg:text-xl mb-4 lg:mb-6 rounded-full flex items-center justify-center mx-auto w-32 h-32 bg-gray-100">
+                    <div className="w-[60px] h-[60px] text-sm lg:text-xl mb-4 lg:mb-6 rounded-full flex items-center justify-center mx-auto w-32 h-32 bg-gray-100">
                       <img src={getStrapiMedia(member?.cover?.url)} alt={member.cover?.name} className=' w-full h-full object-cover object-center rounded-full'/>
                     </div>
                     <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-2">{member?.name}</h3>
