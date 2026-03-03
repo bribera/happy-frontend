@@ -29,16 +29,6 @@ const Card = () => {
       console.log('Données courses reçues:', coursesData)
       console.log('Données categories reçues:', categoriesData)
 
-      // Helper function pour récupérer les propriétés avec fallback
-    const getProperty = (obj, ...keys) => {
-      for (const key of keys) {
-        if (obj && obj[key] !== undefined && obj[key] !== null) {
-          return obj[key];
-        }
-      }
-      return null;
-    };
-
       // Transformation des données Strapi pour correspondre à votre structure
     const transformedCourses = coursesData.data?.map(course => ({
       id: course.id,
@@ -62,9 +52,9 @@ const Card = () => {
     const transformedCategories = [
       { id: 'all', name: 'Tous les cours', icon: '📚' },
       ...(categoriesData.data?.map(category => ({
-        id: category.attributes?.slug || category.slug || category.id,
-        name: category.attributes?.name || category.name || 'Catégorie sans nom',
-        icon: category.attributes?.icon || category.icon || '📚'
+        id: category?.slug || category.id,
+        name: category?.name?.trim() || 'Catégorie sans nom',
+        icon: category?.icon || '📚'
       })) || [])
     ]
 
