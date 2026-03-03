@@ -40,35 +40,6 @@ const Card = () => {
     };
 
       // Transformation des données Strapi pour correspondre à votre structure
-    // const transformedCourses = coursesData.data?.map(course => ({
-    //   id: course.id,
-    //   title: getProperty(course, 'titre', 'title') || 'Titre non disponible', // Utiliser 'title' pas 'titre'
-    //   subtitle: getProperty(course, 'subtitle') || 'Sous-titre non disponible',
-    //   duration: getProperty(course, 'duree', 'duration', 'durée') || 'Durée non spécifiée',
-    //   level: getProperty(course, 'niveau', 'level') || 'Niveau non spécifié',
-    //   format: getProperty(course, 'format', 'forme') || 'Format non spécifié',
-    //   category: course.category?.slug || getProperty(course, 'category') || 'general',
-    //   sessions: Array.isArray(course?.sessions) 
-    //   ? course.sessions.filter(s => s !== null && s !== undefined)
-    //   : [],
-    //   price: getProperty(course, 'prix', 'price', 'tarif') || 'Prix sur demande',
-    //   image: (() => {
-    //     const imageObj = getProperty(course, 'image', 'icone', 'icon');
-    //     // Si c'est un objet Strapi image, extraire l'URL ou utiliser un emoji par défaut
-    //     if (imageObj && typeof imageObj === 'object' && imageObj.url) {
-    //       return imageObj.url;
-    //     }
-    //     // Si c'est déjà une string (emoji ou URL), la retourner
-    //     if (typeof imageObj === 'string') {
-    //       return imageObj;
-    //     }
-    //     // Fallback emoji
-    //     return '📚';
-    //   })(),
-    //   link: getProperty(course, 'lien', 'link', 'url') || `/cours/${course.slug || course.id}`,
-    //   color: getProperty(course, 'couleur', 'color', 'classe_couleur') || 'from-blue-500 to-indigo-600',
-    //   icon: getProperty(course, "icon") || 'FR',
-    // })) || []
     const transformedCourses = coursesData.data?.map(course => ({
       id: course.id,
       title: course?.titre || course?.title || 'Titre non disponible',
@@ -226,7 +197,7 @@ const Card = () => {
                   }`}
                 >
                   <div className="flex items-center justify-center space-x-1 lg:space-x-2">
-                    <span className="text-sm lg:text-base">{category.icon}</span>
+                    <span className="text-sm lg:text-base">{category?.icon}</span>
                     <span className="truncate">{category?.name}</span>
                   </div>
                 </button>
@@ -310,21 +281,18 @@ const Card = () => {
                 <div className={`bg-gradient-to-r ${course.color} p-4 lg:p-6 text-white relative`}>
                   <div className="absolute top-3 lg:top-4 right-3 lg:right-4 text-2xl lg:text-3xl opacity-80">
                    {/* <ReactCountryFlag countryCode={course.icon} svg /> */}
-                    {course.icon ? (
-                      <ReactCountryFlag 
-                        countryCode={course?.icon} 
+                   {course.icon ? (
+                      <ReactCountryFlag
+                        countryCode={course.icon}
                         svg
-                        style={{
-                          width: '1.5em',
-                          height: '1.5em',
-                        }}
+                        style={{ width: '1.5em', height: '1.5em' }}
                         title={course?.title}
                       />
                     ) : (
-                      <span>📚</span> // Fallback si pas de code pays
+                      <span>📚</span>
                     )}
-
                   </div>
+
                   <h3 className="text-lg lg:text-xl font-bold mb-2 lg:mb-3 pr-10 lg:pr-12 leading-tight">
                     {course?.title}
                   </h3>
