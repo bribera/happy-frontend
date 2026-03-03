@@ -36,9 +36,6 @@ const InscriptionForm = () => {
     acceptTerms: false,
     newsletterOptIn: false,
     
-    // Conditions
-    acceptTerms: false,
-    newsletterOptIn: false
   })
 
   // const courses = [
@@ -101,52 +98,41 @@ const InscriptionForm = () => {
   // ]
 
   // Fonction utilitaire pour récupérer les propriétés de manière sécurisée
-  const getProperty = (obj, ...keys) => {
-    for (const key of keys) {
-      if (obj && obj[key] !== undefined && obj[key] !== null) {
-        return obj[key];
-      }
-    }
-    return null;
-  };
+ 
+
 
   // Fonction pour transformer les données Strapi en format utilisable par le formulaire
- const transformCourseData = (strapiCourse) => {
-  const attributes = strapiCourse.attributes;
+ const transformCourseData = (course) => {
 
-  const availableStartDates = (attributes.sessions?.data || [])
-    .filter(session => 
-      session.attributes?.etat === 'Disponible' && session.attributes?.startDate
-    )
-    .map(session => {
-      // On utilise 'startDate' ici aussi
-      const date = new Date(session.attributes.startDate);
-      if (isNaN(date.getTime())) {
-        return null;
-      }
-      return date.toLocaleDateString('fr-FR', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-      });
-    })
-    .filter(Boolean); // Nettoie les dates invalides
+  const availableStartDates =  Array.isArray(course?.sessions)
+          ? course.sessions   
+          .filter(session => session?.etat === 'Disponible' && session?.startDate)
+          .map(session => {
+            const date = new Date(session.startDate)
+            if (isNaN(date.getTime())) return null
+            return date.toLocaleDateString('fr-FR', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric'
+            })
+          })
+          .filter(Boolean)
+      : []; // Nettoie les dates invalides
 
-  const transformed = {
-    id: strapiCourse.id,
-    title: attributes.titre || 'Titre non disponible',
-    description: attributes.description || 'Description non disponible',
-    duration: attributes.duree || 'Durée non spécifiée',
-    level: attributes.niveau || 'Niveau non spécifié',
-    format: attributes.formats?.data[0]?.attributes?.name || 'Format non spécifié',
-    price: attributes.prix ? `${attributes.prix}€` : 'Prix sur demande',
-    color: attributes.color || 'from-blue-500 to-indigo-600',
-    category: attributes.category?.data?.attributes?.slug || 'general', 
-    image: attributes.image?.data?.attributes?.url || '📚',
+  return {
+    id: course.id,
+    title: course.titre || 'Titre non disponible',
+    description: course.description || 'Description non disponible',
+    duration: course.duree || course.duration || 'Durée non spécifiée',
+    level: course.niveau || 'Niveau non spécifié',
+    format: course.formats?.[0]?.name || course?.format || 'Format non spécifié',
+    price: course.prix ? `${course.prix}€` : 'Prix sur demande',
+    color: course.color || 'from-blue-500 to-indigo-600',
+    category: course.category?.data?.slug || 'general', 
+    image: course.image?.url || '📚',
     startDates: availableStartDates
   };
 
-  return transformed;
 };
 
   const fetchCourses = async () => {
@@ -171,14 +157,14 @@ const InscriptionForm = () => {
       
       if (coursesResponse?.data) {
        const transformedCourses = coursesResponse.data
-        .filter(course => course && course.attributes) 
+        .filter(course => course && course.id) 
         .map(transformCourseData)   
 
         setCourses(transformedCourses);
         if (transformedCourses.length > 0) {
           setSelectedCourse(transformedCourses[0]);
         }
-        setCategories(transformedCategories)
+        // setCategories(transformedCategories)
       }
 
     } catch (err) {
@@ -238,7 +224,7 @@ const InscriptionForm = () => {
   e.preventDefault();
   setIsProcessingPayment(true);
 
-  const isWaitlist = selectedCourse.startDates.length === 0;
+  const isWaitlist = (selectedCourse?.startDates?.length ?? 0) === 0;
   const customerData = {
     firstName: formData.firstName,
     lastName: formData.lastName,
@@ -247,7 +233,7 @@ const InscriptionForm = () => {
   };
 
   try {
-    const paymentResult = await initiateKikipayPayment(selectedCourse.price, formData.phone, customerData);
+    const paymentResult = await initiateKikipayPayment(selectedCourse?.price, formData.phone, customerData);
 
     if (paymentResult.success) {
       openKikipayWidget(
@@ -263,9 +249,9 @@ const InscriptionForm = () => {
               data: {
                 informations_client: JSON.stringify(formData), // Stocke tout le formulaire
                 statut_paiement: 'Payé',
-                montant_paye: parseFloat(selectedCourse.price.replace('€', '')),
+                montant_paye: selectedCourse?.rawPrice,
                 id_transaction: response.transactionId, // ou une autre référence de Kikipay
-                cours_formation: selectedCourse.id, // Lie à la formation
+                cours_formation: selectedCourse?.id, // Lie à la formation
                 statut_notification: 'Non notifié'
               }
             })
@@ -417,9 +403,9 @@ const getStepIcon = (stepNumber) => {
                     <span className="bg-white/20 px-3 py-1 rounded-full text-sm">
                       {selectedCourse.format}
                     </span>
-                    <span className="bg-white/20 px-3 py-1 rounded-full text-sm">
+                    {/* <span className="bg-white/20 px-3 py-1 rounded-full text-sm">
                       {selectedCourse.sessions}
-                    </span>
+                    </span> */}
                   </div>
                 </div>
                 <div className="text-right">
@@ -662,10 +648,10 @@ const getStepIcon = (stepNumber) => {
 
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
               <h3 className="font-medium text-blue-900 mb-2">Dates de début disponibles :</h3>
-              {selectedCourse && selectedCourse.startDates.length > 0 ? (
+              {selectedCourse && selectedCourse?.startDates?.length > 0 ? (
                 // Cas 1 : Il y a des dates disponibles
                 <div className="space-y-1">
-                  {selectedCourse.startDates.map((date, index) => (
+                  {selectedCourse?.startDates.map((date, index) => (
                     <div key={index} className="text-sm text-blue-700">• {date}</div>
                   ))}
                 </div>
@@ -691,8 +677,8 @@ const getStepIcon = (stepNumber) => {
             <div className="bg-gray-50 rounded-lg p-4 mb-6">
               <h3 className="font-medium text-gray-900 mb-2">Récapitulatif de votre commande</h3>
               <div className="flex justify-between items-center">
-                <span className="text-gray-600">{selectedCourse ? selectedCourse.title : "Inscription sur liste d'attente"}</span>
-                <span className="font-bold text-lg">{selectedCourse ? selectedCourse.price : "N/A"}</span>
+                <span className="text-gray-600">{selectedCourse ? selectedCourse?.title : "Inscription sur liste d'attente"}</span>
+                <span className="font-bold text-lg">{selectedCourse ? selectedCourse?.price : "N/A"}</span>
               </div>
             </div>
 
