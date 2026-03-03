@@ -40,33 +40,52 @@ const Card = () => {
     };
 
       // Transformation des données Strapi pour correspondre à votre structure
+    // const transformedCourses = coursesData.data?.map(course => ({
+    //   id: course.id,
+    //   title: getProperty(course, 'titre', 'title') || 'Titre non disponible', // Utiliser 'title' pas 'titre'
+    //   subtitle: getProperty(course, 'subtitle') || 'Sous-titre non disponible',
+    //   duration: getProperty(course, 'duree', 'duration', 'durée') || 'Durée non spécifiée',
+    //   level: getProperty(course, 'niveau', 'level') || 'Niveau non spécifié',
+    //   format: getProperty(course, 'format', 'forme') || 'Format non spécifié',
+    //   category: course.category?.slug || getProperty(course, 'category') || 'general',
+    //   sessions: Array.isArray(course?.sessions) 
+    //   ? course.sessions.filter(s => s !== null && s !== undefined)
+    //   : [],
+    //   price: getProperty(course, 'prix', 'price', 'tarif') || 'Prix sur demande',
+    //   image: (() => {
+    //     const imageObj = getProperty(course, 'image', 'icone', 'icon');
+    //     // Si c'est un objet Strapi image, extraire l'URL ou utiliser un emoji par défaut
+    //     if (imageObj && typeof imageObj === 'object' && imageObj.url) {
+    //       return imageObj.url;
+    //     }
+    //     // Si c'est déjà une string (emoji ou URL), la retourner
+    //     if (typeof imageObj === 'string') {
+    //       return imageObj;
+    //     }
+    //     // Fallback emoji
+    //     return '📚';
+    //   })(),
+    //   link: getProperty(course, 'lien', 'link', 'url') || `/cours/${course.slug || course.id}`,
+    //   color: getProperty(course, 'couleur', 'color', 'classe_couleur') || 'from-blue-500 to-indigo-600',
+    //   icon: getProperty(course, "icon") || 'FR',
+    // })) || []
     const transformedCourses = coursesData.data?.map(course => ({
       id: course.id,
-      title: getProperty(course, 'titre', 'title') || 'Titre non disponible', // Utiliser 'title' pas 'titre'
-      subtitle: getProperty(course, 'subtitle') || 'Sous-titre non disponible',
-      duration: getProperty(course, 'duree', 'duration', 'durée') || 'Durée non spécifiée',
-      level: getProperty(course, 'niveau', 'level') || 'Niveau non spécifié',
-      format: getProperty(course, 'format', 'forme') || 'Format non spécifié',
-      category: course.category?.slug || getProperty(course, 'category') || 'general',
-      sessions: getProperty(course, 'sessions', 'seances') || [],
-      price: getProperty(course, 'prix', 'price', 'tarif') || 'Prix sur demande',
-      image: (() => {
-        const imageObj = getProperty(course, 'image', 'icone', 'icon');
-        // Si c'est un objet Strapi image, extraire l'URL ou utiliser un emoji par défaut
-        if (imageObj && typeof imageObj === 'object' && imageObj.url) {
-          return imageObj.url;
-        }
-        // Si c'est déjà une string (emoji ou URL), la retourner
-        if (typeof imageObj === 'string') {
-          return imageObj;
-        }
-        // Fallback emoji
-        return '📚';
-      })(),
-      link: getProperty(course, 'lien', 'link', 'url') || `/cours/${course.slug || course.id}`,
-      color: getProperty(course, 'couleur', 'color', 'classe_couleur') || 'from-blue-500 to-indigo-600',
-      icon: getProperty(course, "icon") || 'FR',
-    })) || []
+      title: course?.titre || course?.title || 'Titre non disponible',
+      subtitle: course?.subtitle || 'Sous-titre non disponible',
+      duration: course?.dure || course?.duree || course?.duration || 'Durée non spécifiée',
+      level: course?.niveau || course?.level || 'Niveau non spécifié',
+      format: course?.formats?.[0]?.name || course?.format || 'Format non spécifié',
+      category: course?.category?.slug || course?.category || 'general',
+      sessions: Array.isArray(course?.sessions) 
+        ? course.sessions.filter(s => s !== null && s !== undefined)
+        : [],
+      price: course?.prix || course?.price || 'Prix sur demande',
+      image: course?.image?.url || course?.image?.formats?.medium?.url || null,
+      link: course?.link || `/cours/${course?.slug || course?.id}`,
+      color: course?.color || 'from-blue-500 to-indigo-600',
+      icon: course?.icon || 'FR',
+  })) || []
 
     // Transformation des catégories
     const transformedCategories = [
@@ -314,7 +333,7 @@ const Card = () => {
                       {course?.duration}
                     </span>
                     <span className="bg-white/20 px-2 py-1 rounded-full text-xs font-medium">
-                      {course.sessions.length > 0
+                      {course?.sessions?.length > 0
                         ? `${course.sessions.length} session${course.sessions.length > 1 ? 's' : ''}`
                         : 'Détails à venir'
                       }
